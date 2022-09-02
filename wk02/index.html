@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTEC-155 Wk 02 Deploying Ethernet Cable</title>
+</head>
+<body>
+    <h1>CTEC-155 Wk 02 Deploying Ethernet Cable</h1>
+    Physical Layer Cabling - Ethernet, Copper Cabling, Fiber Optic Cabling
+    <pre>
+    <h2>2a Summerize Ethernet Standards</h2>
+    <h3>Network Data Transmission</h3>
+        uses electromagnetic radiation of 1 type or the other. 
+        <b>Copper Cable</b> - creates low voltage circuit to transmit electrical signal between interfaces and nodes.
+                Twisted Pair or Coaxial
+        <b>Fiber Optic Cable</b> - transmits a high frequency radiation in the infrared light range of the electromagnetic spectrum. Higher Bandwith over longer length, SMF (single mode) or MMF (multi-mode)
+                MMF has Optical Mode Designations (OM1, OM2, OM3, and OM4)
+    <h3>Ethernet Standards</h3>            
+        IEEE 802.3 Ethernet Standards - provides assurance that network cabling will meet bandwith requirements
+           uses a 3-part naming convention; ex: 10BASE-T denotes an early implementation working at 10Mbps (10), using the baseband signal (BASE), running over Twisted Pair (-T)
+    <h3>Media Access Control and Collision Domains</h3>                
+      Ethernet is Multiple Access Area Network = available communication capacity is shared between nodes connected to same media. 
+        Ethernet uses a contention-based MAC system = CSMA/CD (Carrier Sense Multiple Access with Collision Detection)
+        <img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/2303-1622121495504-n10-008_csmacd_media_access_method.png" style="width:500px;height:600px;">
+        Half-Duplex transmission = Cannot Transmit and Receive at the same time, must do 1 or the other
+    <h3>100BASE-TX Fast Ethernet Standard</h3>
+        Hubs replaced by 'Switches'
+       Unlike Hubs, 'Switches' ports are each seperate collision domains, elemenating the effect of contention.
+       Switches allow for Full-Duplex transmission of data -- Fast Ethernet will not be deployed on New Networks, but it may need to be maintained.
+    <h3>Gigabit Ethernet Standard</h3>    
+        1000Mbps = 1000BASE-T works on Cat-5e or better cable, Gigabit does not support Hubs. 
+            Max distance of 100m between node and switch, or between 2 switches.
+        Copper vs Fiber Optic -- Copper is cheaper, Fiber is the future
+        There are now 10GBASE and 40GBASE systems that run 10x and 40x faster
+    <h2>Summarize Copper Cable Types</h2>    
+        <h3>Unshielded Twisted Pair</h3>
+            each pair are twited at a different rate to reduce interference.
+            'Solid core' wiring for use in walls and behind ducts - thicker 22-24 gauge (AWG)
+              or 'Stranded cable' which are smaller wires twisted together to a gauged of 26AWG
+        <h3>Video: Guidelines for installing Bounded Network Media</h3>      
+           follow the 568 Commercial Telecommunication Wiring Standard 
+         are you using Ethernet Cable, copper or fiber?  -- consider EMI, flourecent lighting; think of signal continuation
+            remember the HVAC system and Plenum spaces and make certain to use Plenum wiring in Plenum spaces
+        Cable Management (use a rack system), employ a good rack system and cable management system - use the correct cables and the correct lenghts
+           Proper labling and documentation of the layout. remove any loose wires (remove loose ends)
+        <h3>Shielded and Screened Twisted Pair</h3>
+            <b>Screened</b> has 1 thin outer foil shield around ALL pairs. labled ScTP (Screened Twisted Pair); F/UTP (Foiled Unshielded); or Foiled Twisted Pair (FTP)
+            <b>Shielded</b> either S/FTP (Shielded/Foiled) or F/FTP (Foil Outer Shell)
+            Legacy STP cable had to be grounded, but the modern S/FTP and F/FTP variants are easier to use
+        <h3>Cat Cable Standards</h3>
+            Cat 5e has replaced Cat 5
+            Cat 6 supports 10G, but at 55m (shorter distance)
+            Cat 6A supports 10G over 100m
+            Cat 7 is always screened / shielded and rated for 10GbE must be terminated with GG45 or TERA connection (Not RJ-45)
+            Cat 8 is used in datacenters for short patch runs 
+        <h3>Twisted Pair Connectors - Registered Jack</h3>    
+            RJ-45 - 8 pin ethernet plug
+            RJ-11 - 4 pin telephone plug
+        <h3>Copper Termination Standards</h3>
+         T568A and T568B -- depends on were the orange and green wires are pinned
+           T568B is the more commonly deployed standard
+        <h3>Plenum and Riser-Rated Cable</h3>
+        Plenum - fire retardent - used in enclosed areas, marked CMP/MMP
+        Riser - travels between 2 floors - not as fire retardent as plenum, marked as CMR/MPR
+        General Purpose - PVC jacket, marked CMG/MMG or CM/MP
+        <h3>Coaxial and Twinaxial</h3>
+         Coax cable = 2 conductors share the same axis - copper in the center, wire mesh is the second conductor, usually terminate in F-type connector which screws into place
+         <img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/5133-1625579000913-n10-008_coax_cable_destinacigdem_123rf.png" style="width:600px;height:300px;">
+         Twinaxial = 2 inner connectors. used in datacenters (10BASE-CR or 40BASE-CR4), terminated using SFP Direct Attach Copper (DAC) and QSFP+ DAC 
+         <img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/1187-1625579288049-twinax_dac_10G_sfp_labsy_cc_by_sa.jpg" style="width:500px;height:500px;">
+    <h2>Summarize Fiber Optic Cabling</h2>     
+        <h3>Fiber Optic Cable</h3> 
+            Core provides transmission path; Cladding reflects signal back to prevent loss; Buffer is the protective plastic coating.
+        <h3>Single Mode vs Multimode Fiber</h3>    
+         Single - small core with long wavelength. support transfer rates of 100Gbps over many kilometers. OS1 is for indoor, OS2 is for outdoor.
+         Multimode - larger core and shorter wavelength. not as fast and can't travel as far as single.
+                OM1/OM2 = up to 1 Gbps - uses LED transmitter
+                OM3/OM4 = uses VCSEL (Vertical-Cavity Surface-Emitting Lasers) [aka LOMMF (Laser Optimized MMF)] - not as powerful as SMF, but supports higher modulation than LED
+        <h3>Fiber Optic Connector Types</h3>           
+             Straight Tip - early style 
+             <img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/3310-1622120763983-n10-008_st_connector_123rf_56615554_aleh_datskevich.jpg" style="width:250px;height:300px;">
+            SC (Subscriber Connector) - push / pull style -- larger connectors in image below.
+            LC (Local Connector) - small form factor tabbed push/pull connector -- smaller connector in image below
+            <img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/7521-1622120814103-n10-008_sc_lc_connectors_123rf_67485251_yanawut_suntornkij.jpg" style="width:400px;height:200px;">
+            MTRJ (Mechanical Transfer Registered Jack) - small form duplex connector with snap-in design for multimode networks.
+            <img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/1387-1622120724964-n10-008_mtrj_123rf_12745025_aleh_datskevich.jpg" style="width:400px;height:200px;">
+        <h3>Fiber Standards</h3>    
+            fiber is often used for the backbone of an office network. 
+        <h3>Fiber Optics Patch Cords</h3>  
+        <h2>Deploy Ethernet Cabling</h2> 
+        <h3>Structured Cabling System</h3> 
+            568 Commercial Building Telecommunication Wiring Standard includes the following subsystems:
+            <b>Work Area</b> - where the user (client) equipment is held, connected via wall port.
+            <b>Horizontal Cabling</b> - connects through walls on the same floor, hence horizontal
+            <b>Backbone Cabling</b> - connects HCCs (Horizontal Cross Connects); described as vertical cross-connects because it runs up and down between floors.
+            <b>Telecommunications Room</b> - houses Horizontal Cross-connects. termination point for the horizontal cabling along with a connection to backbone cabling.
+                    Equipment room is similar to Telecommunication room, but the equipment room will hold 'complex' equipment such as switches, routers, and modems.
+            <b>Entrance Facilities/Demarc</b> - special equipment room that marks the point at which external cabling is joined to internal (premises) cabling. Point where access provider network ends and organization network begins.
+        <h3>Cable Management</h3>                     
+            <b>66 Block</b> -- older style for terminating telephone and legacy data cabling. 50 rows of 4 IDC terminals. 
+
+            <b>110 Block</b> -- supports 100Mhz (cat 5); 2 piece with wafer
+            <b>Bix and Krone Distribution Frames</b> - 1 piece Bix is popular in US, Krone in Europe
+            <b>Patch Panel / Patch Bay</b> - has IDCs on one side and pre-terminated RJ-45 ports on the other. allows for connections to be reconfigured without reterminating punchdown blocks
+        <h3>Wiring Tools and Techniques</h3>
+        <h3>Termination Tools</h3>    
+            Punchdown Tool, Cable Crimper, Block Tool
+        <h3>Fiber Distribution Panels and Fusion Splicing</h3>
+            Cables can be spliced mechanically using an adhesive junction box containing an index matching fluid.
+
+            Fusion Splicing uses a high-precision instrument to arc weld 2 cables together.
+        <h3>Transceivers</h3>
+            used to terminate different cable and connecter types. converts from one media to another.
+
+            SFP (Small Form Factor or Mini GBIC) - uses LC connectores and is designed for Gigabit Ethernet. Duplex Interface - 1 transmit port and 1 receive port, can't do both
+            QSFP/QSFP+ = Quad Small Form Factor Pluggable; supports 4x1Gbps linksused with parallel fiber and multi-fiber push-on termination. 
+                 QSFP+ can be used with Wavelength Division Multiplexing (WDM) Ethernet Standards
+        <h3>Wavelenght Division Multiplexing</h3>         
+            can transmit and receive more than one channel at a time.
+            <b>BiDirectional Wavelength Division Multiplexing</b> -- transmits (Tx) and receives (Rx) on the same channel using 2 different wavelengths, ex: 1310nm for Tx and 1490nm for Rx.
+                BiDi tranceivers will have to be wired in opposite pairs, so the Tx would be 1490 and the RX would be 1310.
+            <b>Coarse and Dense Wavelenght Division Multiplexing</b> - supports up to 16 wavelengths and is used to deploy 4 - 8 BiDi channels over a single fiber strand.
+                as with BiDi, the tranceivers must be installed in opposite pairs for each channel. 
+            
+                in these systems (point-to-point WDM) each tranceiver is cabled to a 'Multiplexer/demultiplexer'. a single strand is run to a mux/demux at another site.
+                  Alternatively devices called 'Optical Add/Drop Multiplexers' can insert and remove signals for a particular wavelength
+<h2>Lesson 3 Deploying Ethernet Switching</h2>         
+        
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    </pre>
+    
+</body>
+</html>
