@@ -9,13 +9,291 @@
 <body>
     <h1>CTEC-155 wk03</h1>
 <pre>
-<h2>Lesson 04: Troubleshooting Ethernet Networks</h2>
-<h3></h3>
+<h2>Lesson 04a: Troubleshooting Ethernet Networks</h2>
+<h3>Network Troubleshooting Methodology</h3>
+NETWORK TROUBLESHOOTING METHODOLOGY
 
+When you encounter a network problem, you must try to get it resolved as quickly as you reasonably can. However, you must also take enough time to determine what has caused the problem so that you can avoid a recurrence.
 
+You should make sure you familiarize yourself with the order of the steps in the CompTIA® Network+® troubleshooting methodology. These steps are explained in more detail in the following topics.
 
-<h2>Lesson 05: Explaining IPv4 Addressing</h2>
-<h3></h3>
+1)Identify the problem:
+    -Gather information.
+    -Duplicate the problem, if possible.
+    -Question users. 
+    -Identify symptoms.
+    -Determine if anything has changed.
+    -Approach multiple problems individually.
+2)Establish a theory of probable cause:
+    -Question the obvious.
+    -Consider multiple approaches.
+    -Top-to-bottom/bottom-to-top OSI model.
+    -Divide and conquer.
+3)Test the theory to determine cause:
+    -Once theory is confirmed, determine next steps to resolve problem.
+    -If theory is not confirmed, reestablish new theory or escalate.
+4)Establish a plan of action to resolve the problem and identify potential effects.
+5)Implement the solution or escalate as necessary.
+6)Verify full system functionality, and if applicable, implement preventive measures.
+7)Document findings, actions, and outcomes.
+<h3>Identify the Problem (Gather Information)</h3>
+  know the scope of the problem (1 person or the entire 3rd floor).
+  - check system documentation for installation or maintenance logs
+  - check recent job logs or consult other techs that might have worked on the system recently
+  - use vendor support (knowledge base / faqs)
+ Try to identify and duplicate the problem  
+    -make a physical inspection
+    -check system logs or diagnose software
+    -duplicate the problem - follow the same steps as user
+<h3>Identify the Problem (Question Users)</h3>
+    determine if anything has changed. -- use open questions to get information established.
+    -approach multiple problems individually
+<h3>Establish a Theory of Probable Cause</h3>
+    -after obtaining accurate answers to your questions about how severe, where to look, and whether to look for recent changes
+    -you diagnose the problem by identifying the symptom
+    -Fault Finding needs to id which componnent is causing the issue.
+        -- question the obvious
+        -- methodically prove functionality
+   Top-to-Bottom / Bottom-to-Top OSI Model Approach  
+   <img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/8204-1607975054620-troubleshooting_osi_model.png" style="height:350px;width:500px">    
+   1) Decide if the problem is hardware or software related. (let's say hardware)
+   2) Decide which hardware subsytem is affected. (the NIC or the Cable)
+   3) Decide whether the problem is in the NIC adapter or connectors and cabling. (in this example cabling)
+   4) Test the Theory. (replace the cable with known good cable)
+
+   Divide and Conquor approach starts where you believe the problem to be, then you test the layers above or below to find any additional problems.
+            Divide an Conquor is different approach from Top-to-Bottom
+<h3>Test the Theory to Determine the Cause</h3>
+    If after testing the theory you still cannot determine the problem you might have to escalate a case:   
+     Make certain that you have established basic facts and are able to communicate the issue with the person you refer the incident.
+<h3>Establish a Plan of Action</h3>            
+    Repair -
+    Replace - 
+    Ignore - 
+<h3>Implement the Solution</h3>
+    could be as simple as restting configuration, enabling or disabling services. 
+        if more complex you may need to follow a <b>Change Management Plan</b> for your company.
+    may need to escalate for someone else to complete the task and fix the problem.
+<h3>Verify Full System Functionality and Implement Preventive Measures</h3>        
+    validate the fix does resolve the reported issue and that the entire system is working as normal.
+        -- let the customer know what you did and get their approval that the issue is resolved.
+    eleminate any factors that can cause the issue to recur.
+<h3>Document Finding, Actions, and Outcomes</h3>    
+    document issue and corrections that were made, incase anything strange happens as a result. 
+
+    keep notes of issue and solution taken so that the problem can be resolved if it does recur.
+<h3>Network Troubleshooting Methodology - video</h3>    
+    gather information - 
+        check physical connection 
+        verify network adapter -- look at network adapter properties, check and see if it is turned on
+   *term APIPA (Automatic Private IP Address) -- self configures IP address and subnet when the DHCP (Dynamic Host Configuration Protocol) isn't working.
+<h2>Lesson 04b: Troubleshoot Common Cable Connectivity Issues</h2>        
+<h3>Specification and Limitations</h3>
+    compare expected performance with current performance
+-Speed vs Throughput: the number of 'Symbols' transmitter per second is the Baud rate. Baud is measured in MHz or GHz
+--Throughput is the average data transfer rate achieved over a period of time -- adversely affected by link distance and interference
+    Latency = speed delay
+-Distance Limitations, Attenuation, and Noise
+    -Attenuation: loss of signal strength in decibels (dB). [signal strength at origin vs signal strength at end]    
+    -Noise: anything transmitted that isn't the intended signal; makes signal difficult to distinguish and causes error
+<h3>Cable Issues</h3>    
+typical Ethernet link for an office workstation includes the following components:
+    -Network transceiver in the host (end system).
+    -Patch cable between the host and a wall port.
+    -Structured cable between the wall port and a patch panel (the permanent link).
+    -Patch cable between the patch panel port and a switch port.
+    -Network transceiver in the switch port (intermediate system).
+The entire cable path (patch cords plus permanent link) is referred to as a channel link.
+
+Always check physical connections first, cables and such for connection 'termination' and faults in the wiring.
+ use a loopback tool if you have one.
+<h3>Loopback Plug, Status Indicators, and Interface Configuration</h3>
+    Loopback Plug: RJ-45 plug that returns NIC packet back to itself - used to test bad ports.
+    Link Lights: LED indicators on the NIC:
+            -Solid green-The link is connected but there is no traffic.
+            -Flickering green-The link is operating normally (with traffic).
+            -No light-The link is not working or is disconnected at the other end.
+            -Blinking amber-A fault has been detected (duplex mismatch or spanning tree blocking, for instance).
+            -Solid amber-The port is disabled. 
+<h3>Cable Testers</h3>            
+    reports detailed information about the physical and electrical properties of a cable. 
+        TDR - Time Domain Reflectometer used to measure length of cable run and locate open circuits, kinks, or other imperfections
+                TDR calculates amount of time a signal takes to return and helps makes isolating problems easier
+<h3>Wire Map Tester and Tone Generator</h3>
+    Wire Map Testers identify the following problems: 
+        -Continuity (open)- A conductor does not form a circuit because of cable damage or because the connector is not properly wired.
+        -Short- Two conductors are joined at some point, usually because the insulating wire is damaged, or a connector is poorly wired.
+        -Incorrect pin-out/incorrect termination/mismatched standards- The conductors are incorrectly wired into the terminals at one or both ends of the cable. The following transpositions are common:
+        -Reversed pair- The conductors in a pair have been wired to different terminals (for example, from pin 3 to pin 6 and pin 6 to pin 3 rather than pin 3 to pin 3 and pin 6 to pin 6).
+        -Crossed pair (TX/RX reverse)- The conductors from one pair have been connected to pins belonging to a different pair (for example, from pins 3 and 6 to pins 1 and 2). This may be done deliberately to create a crossover cable, but such a cable would not be used to link a host to a switch.
+    Tone generator - used to apply signal on cable to be traced to follow cable through ceiling and ducts
+<h3>Attenuation and Interference Issues</h3>
+    if a cable is too long it may experience dB loss - causing high error rates in transmission
+    +3 dB means doubling, while -3 dB means halving.
+    +6 dB means quadrupling, while -6 dB relates to a quarter.
+    +10 dB means ten times the ratio, while -10 dB is a tenth.
+        -- when dealing with insertion loss value smaller is better (ex: cat5e has 24dB insertion loss rating and cat6 has 21.7dB)
+         shielded cable, shorter cable runs, and reapeaters / switches are the way to alleviate the issue.
+<h3>Crosstalk Issues</h3>         
+    -Near End (NEXT)-This measures crosstalk on the receive pairs at the transmitter end and is usually caused by excessive untwisting of pairs or faulty bonding of shielded elements.
+    -Attenuation to Crosstalk Ratio, Near End (ACRN)-This is the difference between insertion loss and NEXT. ACR is equivalent to a signal-to-noise ratio (SNR). A high value means that the signal is stronger than any noise present; a result closer to 0 means the link is likely to be subject to high error rates.
+    -Attenuation-to-Crosstalk Ratio, Far End (ACRF)-Far End Crosstalk (FEXT) is measured on the receive pairs at the recipient end. The difference between insertion loss and FEXT gives ACRF, which measures cable performance regardless of the actual link length.
+    -Power sum-Gigabit and 10 GbE Ethernet use all four pairs. Power sum crosstalk calculations (PSNEXT, PSACRN, and PSACRF) confirm that a cable is suitable for this type of application. They are measured by energizing three of the four pairs in turn.   
+<h3>Cable Application Issues</h3>
+Straight Through and Crossover Cables
+There are two main formats for patch cords:
+
+        -Straight through-the cable is terminated with either T568A at both ends or T568B at both ends. This type of cable is used for an uplink (MDI port to MDIX port).
+        -Crossover-the cable is terminated with T568A at one end and T568B at the other. This type of cable is used to connect an end system (host) to another host or a hub to a hub.
+Modern switches either have an 'Uplink' port, or use 'auto-MDI/MDI-X' == all Gigabit Ethernet ports support auto-MDI/MDI-X
+
+Rollover / Console cable = pale blue, wired different than ethernet  - serial link is created and PuTTY is used to establish connection??
+
+Power over Ethernet - Cat3 on support PoE. Cat5e and better support PoE+
+<h3>Fiber Optic Cable Testing Tools</h3>
+OTDR - Optical Time Domain Reflectometer - verify that new splices are sound
+OSA - Optical Spectrum Analyzer used with WDM (Wavelength Division Multiplexing)
+<h3>troubleshooting video</h3>
+  
+<h2>Lesson 05a: Explaining IPv4 Addressing</h2>
+    the physical and data link layers from earlier lessons establish links between 'Nodes'
+      -- at the 'Network Layer' (Layer 3) individual networks can be inter connected into an 'internetwork'
+    will learn IPv4 addressing schemes, IPv4 forwarding and how to configure IP networks and subnets.  
+<h3>IPv4 Addressing Schemes</h3>
+    TCP/IP (Transmission Control Protocol / Internet Protocol) consists of protocols and standards that work together (complementary).
+       TCP/IP provides functionality for majority of modern networks.
+        - provides logical addressing
+        - packet forwarding
+<h3>IPv4 Datagram Header</h3>
+Ethernet works on Layers 1 & 2 of the OSI model - it is a single network segment (Layer 2 broadcast domain)
+    in Layer 3 (Network Layer) the IP (Internet Protocol) provides logical network addressing and forwarding.
+IP header contains fields to manage logical addressing and forwarding.
+    <img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/8690-1622732991374-n10-008_ipv4_header.png" style="width:450px;height:300px;">
+ Version field- indicates version of IP in use 
+ Length field - indicates header length and total packet size.
+ Protocol field - encapsulated in the payload so receiving host knows how to process payload.
+            for most packets 'IP Protocol type' will indicate TCP/6 or UDP/17(User Datagram Protocol).
+
+   * Some protocols run directly on IP (rather than Transport Layer)         
+   --Internet Control Message Protocol (ICMP/1) is used for status messaging and connectivity testing.
+   --Internet Group Management Protocol (IGMP/2) is used with multicasting.
+   --Generic Routing Encapsulation (GRE/47) is used to tunnel packets across an intermediate network. This is used (for example) in some virtual private network (VPN) implementations.
+   --Encapsulating Security Payload (ESP/50) and Authentication Header (AH/51) are used with the encrypted form of IP (IPSec).
+   --Enhanced Interior Gateway Routing Protocol (EIGRP/88) and Open Shortest Path First (OSPF/89) are protocols used by routers to exchange information about paths to remote networks.
+<h3>IPv4 Address Format</h3>
+    Data Link Layer (Layer 2) uses MAC or Hardware Address 
+    Network Layer (Layer 3) uses IPv4 Address which contains:
+            -network number (network ID)-This number is common to all hosts on the same IP network.
+            -host number (host ID)-This number identifies a host within an IP network.
+
+<b>32-bit IPv4 Addressing</b>
+ the 32bit binary strings are divided into 4 groups of 8 bits (octets).
+   IP addresses are formatted in 'Dotted Decimal Notation' ex: 198.51.100.1
+ 
+   LOOK INTO BINARY/DECIMAL Conversion -- ** 'Columnar Method' **
+<h3>Network Masks</h3>   
+    IP address represents both a network ID and host ID. the mask conceals the 'host ID' portion of the IP address and reveals the network ID portion.
+ an 8-bit subnet mask = 255.0.0.0; 16-bit = 255.255.0.0 
+    -- 8-bit (short netmask) allows for 126 possible network address
+<h3>Subnet Masks</h3>       
+    Subnet Addressing has 3 herarchical levels:
+            -network ID:
+            -subnet ID: lies within an octet boundary
+            -host ID:
+<h3>Host Address Range</h3>
+    ex: 198.51.100.0/24 allows for 254 possible 'host IDs'
+        -- the host ID portion is 8 bits long.
+        the 1st address: 198.51.100.0 is reserved for the 'Network Address'
+        the Last address: 198.51.100.255 is reserved for the 'Broadcast Address'
+    <i>The purpose of subnetting is to create layer 3 broadcast domain segments with fewer hosts. The trick with subnet design is to fit the scheme to the requirements for number of subnetworks and number of hosts per subnet. Each bit added to the mask approximately halves the number of available host addresses.</i>    
+<h2>Lesson 05b: Explain IPv4 Forwarding</h2>
+    the function of IP is to facilitate the creation of a group of logically disting but interconnected networks. 
+<h3>Layer 2 vs Layer 3 Addressing and Forwarding</h3>    
+    Layer 2 forwarding = 'Switching'
+    Layer 3 forwarding = 'Routing'
+   
+    Nodes within each subnet can address one another directly (same 'Broadcast Domain')
+        Nodes use MAC address within the same 'Broadcast Domain'
+<h3>IPv4 Default Gateways</h3>        
+    the Default Gateway is a router configured with a path to remote network (deals with traffic meant for outside your Layer 2 communication)
+    <i>Dynamic routing protocols allow routers to share information about known networks and possible paths to them. This information allows them to choose the best routes to any given destination and select alternate routes if one of these is unavailable.</i>
+<h3>Address Resolution Protocol</h3>    
+    ARP (Address Resolution Protocol) - resolves IP to Hardware(MAC) address
+            ARP messaging is only used on Ethernet??
+<h3>Unicast and Broadcast Addressing</h3>
+        Unicast - sends packets to single recipient
+        Broadcast - sends packet to the 'Broadcast Address' (ex: 255.255.255.255)
+                all hosts that share the same Broadcast address will receive the packet
+   <i>IP packets must be delivered to hosts using layer 2 MAC addresses. At layer 2, broadcasts are delivered using the group MAC address (ff:ff:ff:ff:ff:ff). This means that there is also a broadcast domain scope at layer 2. With legacy devices such as hubs and bridges, every port on all physically connected nodes is part of the same layer 2 broadcast domain. This is also the case with a basic or unmanaged switch. By default, a switch floods broadcasts out of every port except the source port.</i>             
+<h3>Multicast and Anycast Addressing</h3>   
+    majority of IPv4 traffic is either Unicast or Broadcast, but other types exist
+
+    Multicast - IGMP (internet Group Management Protocol) host sends content to other hosts that identify themselves as interested, switch must be multicast enabled 
+    Anycast - group of hosts are configured with same IP address - allows for load balancing and failover between serve hosts sharing IP address. 
+<h2>Lesson 05c: Configure IP Networks and Subnets</h2>
+    explain basic principles of sementation and subnetting
+    IPv4 vs IPv6 -- 
+<h3>Virtual LANs and Subnets</h3>
+        every port on a switch will be part of the same local segment (in the same Broadcast Array)
+ Virtual LANs (VLANs)- each interface on a managed switch is assigned an ID; different groups of computers on the same switch can appear to be in seperate LAN segments
+
+ @ Layer 3 Subnetting is the process of logically deviding an IP network into smaller subnetworks
+ <h3>Classful Addressing</h3>
+    IP Networks and Subnet IDs using masks are 'classless addressing'.
+Classful Addressing was employed in the 1980's: allocates network ID based on first octet of the IP address
+
+Class A = 1 to 126
+Class B = 128 to 191
+Class C = 192 to 223
+  
+in Netmask: Class A = 255.0.0.0 (/8)
+            Class B = 255.255.0.0 (/16)
+            Class C = 255.255.255.0 (/24)
+<h3>Public vs Private Addressing</h3>
+    Public IP addresses are governed by IANA and administered by regional registries.
+    
+    Private IP Address Ranges: 
+        can be drawn from one of the pools of addresses defined by RFC 1918 as non-routable over the internet.
+                Class A = 10.0.0.0 - 10.255.255.255
+                Class B = 172.16.0.0 - 172.31.255.255
+                Class C = 192.168.0.0 - 192.168.255.255
+Internet access is facilitated in 2 ways:
+    - through a router configured with a single block of valid public IP addresses - router translates between private and public addresses using NAT (Network Address Translation).
+    - through a proxy server that fulfills request for Internet resources. Proxy server must be configured with public IP address on external-facing interface.
+APIPA (Automatic Private IP Addressing)    
+        host IP config can be applied statically or use autoconfig, if autoconfig DHCP (Dynamic Host Configuration Protocol) server can NOT be reached then
+            Windows will auto assign and IP address at random from 169.254.1.1 - 169.254.254.254.
+            if you see one of the addresses then DHCP is not being utilized.
+<h3>Other Reserved Address Ranges</h3>            
+    Class D: 224.0.0.0 - 239.255.255.255 - for multicasting
+    Class E: 240.0.0.0 - 255.255.255.255 - experimental use testing
+Loopback Address: 127.0.0.0 - 127.255.255.255 (127.0.0.0/8) reserved for loopback address
+                used to check if TCP/IP is properly installed on a host    
+
+    A few other IPv4 address ranges are reserved for special use and are not publicly routable:
+
+        0.0.0.0/8-Used when a specific address is unknown. This is typically used as a source address by a client seeking a DHCP lease.
+        255.255.255.255-Used to broadcast to the local network when the local network address is not known.
+        100.64.0.0/10, 192.0.0.0/24, 192.88.99.0/24, 198.18.0.0/15-Set aside for a variety of special purposes.
+        192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24-Set aside for use in documentation and examples.                
+<h3>IPv4 Address Scheme Design</h3>        
+In the following example, the network designed is subnetting the network address 172.30.0.0/16. The process of designing the scheme is as follows:
+    1)Work out how many subnets are required (remembering to allow for future growth), then round this number up to the nearest power of 2.
+        For example, if you need 12 subnets, the next nearest power of 2 is 16. The exponent is the number of bits you will need to add to your default mask. For example, 16 is 24 (2 to the power of 4), so you will need to add 4 bits to the network prefix. In dotted decimal format, the subnet mask becomes 255.255.240.0 .
+
+    2)Work out how many hosts each subnet must support and whether there is enough space left in the scheme to accommodate them.
+        For example, the network address is in the /16 range, and you are using 4 bits for subnetting, so you have 32-20 = 12 bits for hosts in each subnet. The number of hosts per subnet can be expressed using the formula 2 n -2, where n is the number of bits you have allocated for the host ID. 12 bits is enough for 4094 hosts in each subnet.
+
+        <i>You subtract 2 because each subnet's network address and broadcast address cannot be assigned to hosts.</i>
+
+        <i>Wherever a 1 appears in the binary mask, the corresponding digit in the IP address is part of the network or subnet address. When you are planning what your mask will be, remember this rule. Allocate more bits in the mask if you need more subnets. Allocate fewer bits in the mask if you need more hosts per subnet.</i>
+
+    Just for comparison, if you have a /24 (or Class C) network address and try to allocate 16 subnets, there will be enough space left for only 14 hosts per subnet (24-2).
+
+    3)Work out the subnets. The easiest way to find the first subnet ID is to deduct the least significant octet in the mask (240 in this example) from 256. This gives the first subnet ID, which, in full, is 172.30.16.0/20.
+        The subsequent subnet IDs are all the lowest subnet ID higher than the one before-32, 48, 64, and so on.
+
+    4)Work out the host ranges for each subnet. Take the subnet address and add a binary 1 to it for the first host. For the last host, take the next subnet ID and deduct two binary digits from it. In this case, this is 172.30.16.1 and 172.30.31.254 , respectively. Repeat for all subnets.  
 </pre>    
     
 </body>
