@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTEC-155 wk05 Lesson 07 Configuring and Troubleshooting Routers</title>
+</head>
+<body>
+    <h1>CTEC-155 wk05 Lesson 07 Configuring and Troubleshooting Routers</h1>
+<pre>
+    <h2>Lesson 07 Configuring and Troubleshooting Routers</h2>
+      compare routing concepts, compare dynamic routing concepts, install and troubleshoot routers
+    <h2>Topic 07a Compare and Contrast Routing Concepts</h2>
+        understand the way routers make forwarding decisions
+    <h3>Routing Tables and Path Selection</h3>
+    <i>"A router is a multihomed intermediate system with links and network topology information to facilitate forwarding packets between subnets or around an internetwork."</i>
+    
+    Protocol-The source of the route.
+    Destination-Routes can be defined to specific hosts but are more generally directed to network IDs. The most specific destination prefix (the longest mask) will be selected as the forwarding path if there is more than one match.
+    Interface-The local interface to use to forward a packet along the chosen route. This might be represented as the IP address of the interface or as a layer 2 interface ID.
+    Gateway/next hop-The IP address of the next router along the path to the destination.
+    
+    <img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/726-1628279110159-n10-008_vyos_show_ip_route_connected_static.png" style="width:600px;height:200px;">
+    <h3>Static and Default Routes</h3>    
+        Routing table entries fall into four general categories:
+            -Direct network routes, for subnets to which the router is directly attached.
+            -Remote network routes, for subnets and IP networks that are not directly attached.
+            -Host routes, for routes to a specific IP address. A host route has a /32 network prefix.
+            -Default routes, which are used when an exact match for a network or host route is not found.
+                    Default routes = simplest way for an edge router to forward traffic to ISP router. 0.0.0.0/0 (IPv4) or ::/0 (IPv6)        
+            static routes are manually added to the routing table and only change if edited. can be persistant or non-persistant.
+    <h3>Routing Table Example</h3>
+        <img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/8117-1627570290566-net_fig07_02.png" style="width:500px;height:325px;">
+        <i>"First, consider the routing table of router A:
+
+            -The router is directly connected to networks 10.0.1.0/24 (via interface G0) and 10.0.2.0/24 (via interface G1).
+            -The router has been configured with static routes to 10.0.3.0/24 and 10.0.4.0/24, both of which are reachable via interface G1.
+            
+            Router B has been configured in the same way, but here the networks 10.0.2.0/24 and 10.0.3.0/24 are directly connected and the paths to 10.0.1.0/24 and 10.0.4.0/24 are configured as static entries.
+            
+            Router C has been configured differently. It is directly connected to 10.0.3.0/24 and 10.0.4.0/24, but the only static route configured is for 0.0.0.0/0. This is a default route. While the router has no specific knowledge of networks 10.0.1.0/24 and 10.0.2.0/24, it will forward packets for these destinations over its G0 interface."</i>
+    <h3>Packet Forwarding</h3>
+           Hop Count: 
+           
+           TTL (Time To Live): at each router the TTL counter is decreased by 1. When TTL = 0 the packet is discarded to prevent badly addressed packets from permanently cirulating the network. 
+    <h3>Fragmentation</h3>       
+            MTU of Ethernet frame is usually 1500 bytes. for IP datagram larger packets will be fragmented across more than one Ethernet frame.
+                *most systems try to avoid IP fragmentation
+        IPv6 does NOT allow routers to perform fragmentation, instead using MTU path discovery        
+    <h2>Topic 07b Compare and Contrast Dynamic Routing Concepts</h2>    
+    <h3>Dynamic Routing Protocols</h3>        
+            Uses algorithms and metrics to maintain routing information database
+         
+        <b>Topology and Metrics</b>
+           distance vector protocols will prioritize the path with the fewest hops (least-cost)
+        <b>Convergence</b>
+            process where routers running dynamic routing algorithms agree on network topology. 
+                routers must be able to update newly added networks, routers, or router interface failures.
+                   -black hole = packet is discarded without communicating that it was discarded.
+                   -loop = packet is forwarded around the network until TTL expires
+                   -steady state = where all routers share same topology 
+
+                Convergence Performance = amount of time taken for router to reach 'steady state'
+    <h3>Interior vs Exterior Gateway Protocols</h3>        
+            Network under the control of a single owner Autonomous System(AS).
+
+                IGP (Interior Gateway Protocol) identifies Routes within AS.
+                EGP (Exterior Gateway Protocol) advertises Routes between AS
+        popular Protocols: 
+            <u>IGP Class</u> 
+                Routing Info Protocol (RIP), Distance Vector, UDP (port 520 or 521)
+                Enhanced Interior Gateway Routing Protocol (EIGRP), Distance / Hybrid, Native IP (port 88)
+                Open Shortest Path First (OSPF), Link State, Native IP (port 89)
+            <u>EGP Class</u>
+                Border Gateway Protocol, Path Vector, TCP (port 179)
+    
+        *Legacy 'classful' protocols DO NOT use subnet masks or network prefixes. They determine IPv4 network ID based on first 3 bits of the address.
+    <h3>Routing Information Protocol (RIP)</h3>    
+            Routing Information Protocol (RIP) - 'Distance Vector' routing protocol. 
+
+            to prevent looping the max hop count is 15. that is the max size limit of a RIP network since they cannot have a hop count of 16 or higher.
+    <h3>RIP Versions</h3>
+        RIPv1 = classful that uses inefficient broadcasts to communicate over port 520
+        RIPv2 = classless addresses and uses more efficient multicast transmission over port 520; supports Authentication.
+        RIPng (next gen) = designed for IPv6; uses port 521
+        
+        RIP is best for small networks with limited 'failover routes'. Distance Vector algorithms are not scalable to environments with large numbers of networks.
+            Distance Vector algorithms also provide slower convergence than 'link state'
+
+        for more complex networks other protocols should be considered.
+    <h3>Enhanced Interior Gateway Routing Protocol</h3>        
+        there are versions for IPv4 and IPv6
+    
+    EIGRP is classed as an 'Advanced Distance Vector' or 'Hybrid Routing Protocol'
+        like RIP it relies on neighboring routers to report paths to remote networks. 
+         Path is based on weighted elements, the default elements are:
+            <b>Bandwidth</b> - cost based on lowest bandwidth link in the path.
+            <b>Delay</b> - cost based on time takes for packet to traverse the link. calculated as the cumulative value for all outgoing interfaces in the path.            
+
+        -RIP= sends periodic (every 30 seconds) updates of 'Router Information Base' 
+        -EIGRP= sends a full update at 1st connection and only updates if there are topology changes    
+            EIGRP also maintains a 'topology table' along with the 'router information base'
+            EIGRP is native IP protocol and is encapsulated directly in IP datagrams. Updates are transmitted using 'multicast addressing'.
+    <h3>Open Shortest Path First</h3>
+        Link State Algorithm that stores complete network topology and assess the least-cost path from the 'topology database'
+        
+        OSPF is suited for large organizations with multiple redundant paths between networks.
+            -Better 'Convergence' than RIP
+            -Designed to support 'Classless' addressing
+
+        OSPF is a 'hierarchical routing system' [RIP and EIGRP are 'flat routing systems']. 
+        
+            LSA (Link State Advertisement): updates shared between neighbors build a consistent LSDB
+            LSDB (Link State Database): represents the network topology of the area
+
+        the Router applies the SPF (shortest path first) algorithm and finds the least-cost, loop free routes and adds it to the 'routing table'
+        <b>-the use of a 'topology table' of the whole network to select routes is the key difference between 'link state' and 'distance vector algorithms'</b>
+    <h3>Border Gateway Protocol</h3>    
+            designed to be used between routing domains in a mesh internetwork and is used for routing primarily between ISPs.
+
+        Routing between 'Autonomous Systems (AS)'. 
+
+        Network Layer Reachability Information (NLRI) = BGP classless network prefixes.
+
+        BGP is classed as a 'Path Vector Routing Protocol'.
+         works over TCP port 179
+    <h3>Administrative Distance</h3> 
+            used to express the trustworthiness of the protocol supplying the route. 
+    <h3>Classless Inter-Domain Routing</h3>
+            also known as 'supernetting'.
+
+         * both subnetting and supernetting require use of classless routing protocols [ex: RIPv2, EIGRP, OSPF, & BGPv4].
+    <h3>Variable Length Subnet Masks</h3>        
+           Supernetting simplifies information needed by routers to locate IP networks. 
+           
+           VLSM (Variable Length Subnet Mask) allow different lenght netmask to be used within the same IP network.
+            
+<i>"VLSM design usually proceeds by identifying the subnets with the most hosts and organizing the scheme in descending order. As with any subnet calculations, it helps to remember that each power of 2 is double the previous one:
+    For this example, consider a company with three sites, each with differing network sizes and IP address requirements. There are also subnets representing point-to-point WAN links between the routers.
+    <img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/9581-1627571868872-net_fig07_09.png" style="width:500px;height:350px;">
+    1) In the example, the largest requirement is for 80 hosts. 2 to the sixth has a maximum of 64 values, which is not enough, so the nearest match in the table is 2 to the 7 (128). This tells us that we need 7 bits for host addressing. This actually allows for 126 host addresses once the network and broadcast addresses have been accounted for (2 7 -2). Using 7 bits makes the prefix /25 (32 minus 7).
+    2) The next requirement is technically met by a 5-bit host address space, but as this allows for exactly 30 addresses, there would be no room for growth. Using 6 bits might be safer, but for this scenario, we will choose the closest match and adopt the /27 prefix.
+    3) The next three requirements are for 8, 12, and 12 hosts. These all require 4 bits, which gives up to 14 usable addresses.
+    4) The routers use point-to-point links, so no more than two addresses will ever be required. This can be met by selecting a /30 prefix."
+</i>
+<h2>Topic 07c Install and Troubleshoot Routers</h2>
+    must understand routing algorithms, install routers in an appropriate place in network, configure and install routers.
+       -- use CLI to test routing infrastructure.
+<h3>Edge Routers</h3>       
+-Hosts with addresses in the same subnet or IP network must not be separated by a router.
+-Conversely, hosts with addresses in different subnets or IP networks must be separated by a router.
+
+  -Placed at network perimeter. typified by distinguishing external (internet facing) and internal interfaces.
+     --Edge Routers perform 'framing' to repackage data from the 'private LAN' frame format to the 'WAN Internet access' frame format.
+    
+        -Customer Edge = customer's Router
+        -Provider Edge = service provider's router
+
+    DSL or Cable Provider Edge Routers are called SOHO (Small Office / Home Office) routers.
+    
+    Routers for Medium to Large Networks have specialized processors to handle routing and forwarding processes + memory to buffer data
+        these routers also have different methods of configuring site-to-site virtual private networks (VPNs)
+<h3>Internal Routers</h3>
+     no public interfaces. positioned to implement whatever 'network topology' is required.
+    <b>Subinterfaces</b>         
+        'Virtual Interfaces' - will receive traffic from a fiven VLAN and route to the subinterface serving that VLAN.
+    <b>Layer 3 Capable Switches</b>
+        optimized for routing between VLANs. uses static and dynamic routing to identify which VLAN an IP address should be forwarded to. 
+            -can maintain mapping table IP addresses to MAC addresses so that when a path is established
+<h3>Router Configuration</h3>
+    configured over serial connection (Console Port) or via SSH (Secure Shell).
+      -best practice to create a Virtual Interface or 'Loopback Interface' (NOT a physical interface)
+
+      after placing the router in the appropriate location in the network, connecting all cabling, and establishing a 'management session' you have 2 principal configuration tasks:
+        - Apply IP configuration to each interface.
+        - Configure one or more routing protocols and / or static routes so that the router can serve it's function.
+
+ <i>show route, show ip route, show ipv6 route</i> will output the active routing table.
+<h3>Route</h3>
+    <i>route</i> command is used to view and modify routing table of 'end system' Windows and Linux hosts
+    To add a route, the syntax for the Windows version of the tool is:
+
+    <i>route [-f -p] add DestinationIP mask Netmask GatewayIP metric MetricValue if Interface</i>
+    
+    The variables in the syntax are defined as:
+    
+     -DestinationIP is a network or host address.
+     -Netmask is the subnet mask for DestinationIP.
+     -GatewayIP is the router to use to contact the network or host.
+     -MetricValue is the cost of the route.
+     -Interface is the adapter the host should use (used if the host is multihomed).
+    For example:
+    
+    <i>route add 192.168.3.0 mask 255.255.255.0 192.168.5.1 metric 2</i>
+
+    the routes created are non-persistant. the syntax is slightly different for Linux:
+
+    Linux: <i>route add -net 192.168.3.0 netmask 255.255.255.0 metric 2 dev eth0</i>
+<h3>Tracert and Traceroute</h3>
+-Traceroute in Linux and Router OSs - issues UDP probe by default usses a UDP probe for port 32767 with a TTL of 1. 
+-Tracert issues an Echo Request Probe with a TTL of 1. (Windows OS)
+<h3>Missing Route Issues</h3>
+    missing routes can occur if a router stops communicating with its neighbors.
+
+ ** start troubleshooting this by pinging the router nodes that are neighbors of the system with the issue to check basic connectivity. If there is a network path and the neighbors are up, you would investigate the protocol configuration (perhaps there is an authentication issue or incorrect parameter).  
+<h3>Routing Loop Issues</h3>
+    if 2 routers use one another as the path to a network packets will loop til the TTL expires.
+
+    -Maximum hop count-If the cost exceeds a certain value (16 in RIP), the network is deemed unreachable. A poison route is one advertised with a hop count of 16. This can provide an explicit failure notice to other routers.
+    -Holddown timer-If a node declares a network unreachable, its neighbors start a holddown timer. Any updates about that route received from other nodes are discarded for the duration of the timer. This is designed to ensure that all nodes have converged information about an unreachable network.
+    -Split horizon-Prevents a routing update from being copied back to the source. In the example above, this would prevent router C from sending an update about a route to router A via router B to router B.
+ 
+ ** You can use traceroute to diagnose a routing loop by looking for IP addresses that appear multiple times in the output.
+<h3>Asymetrical Routing Issues</h3>
+    Return Path is different than Forward Path - common where load balancers or where routing takes place over multiple redundant paths
+
+ ** Use traceroute from both sender and receiver to compare the per-hop latency to identify where the routing topology is misconfigured.
+<h3>Low Optical Link Budget Issues</h3>
+    Optical Link Budget is the amount of loss suffered by all components along a figer transmission path.
+        -Attenuation-This is the loss over the length of the cable, based on fiber type and the wavelength used. Single mode has a loss of up to 0.4 dB/km, while multimode can be from 0.8 dB/km to 3 dB/km.
+        -Connectors-Each connector in the path incurs a loss, usually assumed to be 0.75 dB.
+        -Splices-Additional splices in the cable are budgeted at around 1 dB for mechanical and 0.3 dB for fusion.
+      test the link with Optical Time Domain Reflectometer (OTDR) to derive actual budget value.    
+<h3>Designing a Branch Office Internetwork - video</h3>
+
+
+
+
+</pre>    
+    
+</body>
+</html>
