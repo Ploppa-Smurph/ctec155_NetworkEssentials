@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTEC-155 wk06 Lesson 08 & 09</title>
+</head>
+<body>
+<h1>CTEC-155 wk06 Lesson 08 Expaining Network Topologies and Types & 09 Explaining Transport Layer Protocol</h1>
+<pre>
+    <h2>Lesson 08 Explaining Network Topologies and Types</h2>
+    Explain Network Types and Characteristics, Explain Tiered Switching Architecture, Explain Virtual LANs
+    <h3>8a Explain Network Types and Characteristics</h3>
+        The flow of data through a network at Layers 01, 02, and 03 is determined by the Network Topology and Type. 
+    <h4>Client-Server versus Peer-to-Peer Networks</h4>    
+    network is comprised of nodes and links - intermediate nodes forward information and end nodes send and receive data.
+      End System nodes are classified as clients or servers.
+    client-server: old standard - powerful host acts as server - clients consume from the centralized server
+    peer-to-peer: decentralized - every system acts as client and server.
+
+    enterprise networks are still typically client-server
+    workgroups or small networks are more peer-to-peer 
+    <h4>Network Types</h4>
+    refers to Networks size and scope -- 'Size' can be measured in # of 'Nodes'
+                                'Scope' is the area over which nodes are distributed
+    
+    <b>LAN Local Area Network</b>
+    directly connected with wiring/cabling or short distance wi-fi
+        ex: Home/Residential Network, SOHO Small Office/Home Office, SME Small/Medium-sized Enterprise, Enterprise like a CAN (Campus Area Network).
+    WLAN - is a wireless acces point and public WLANs are referred to as Hotspots
+    
+    <b>WAN Wide Area Network</b>
+    a network of networks, connected by long-distance links 
+
+    term MAN (Metropolitan Area Network) is larger than LAN, but smaller than WAN
+
+    <b>PAN Personal Area Network</b>
+        gaining traction due to linking of Laptop, Phone, tablet, headsets, printers, etc... by a single person
+<h4>Network Topology</h4>
+    describes physical or logical structure of the network in terms of 'nodes' and 'links'
+<img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/5815-1627646213450-net_fig08_01.png" style="width:600px;height:400px;">
+
+A point-to-point link can be either physical or logical, it is the 1:1 relationship that defines point-to-point.
+<h4>Star Topology</h4>
+    each endpoint is connected to a central 'forwarding' node [such as a hub, switch, or router]. 
+ 
+ <i>"star topology is easy to reconfigure and easy to troubleshoot because all data goes through a central point, which can be used to monitor and manage the network. Faults are automatically isolated to the media, node (network card), or the hub, switch, or router at the center of the star."</i>   
+ <img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/1773-1627646284207-net_fig08_05.png" style="width:600px;height:400px">
+
+ * Hub-and-spoke is the same layout, but refers to WANs with remote sites.
+ <h4>Mesh Toplogy</h4>
+    commonly used in WANs in theory each mesh device has a point-to-point relationship with every other device on the network and is thereby 'fully connected'.
+
+True Mesh is impractical and it is more common to utilize 'Partial Mesh'. 
+<img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/4810-1627646314846-net_fig08_04.png" style="width:600px;height:400px;">
+
+**Mesh networks provide excellent redundancy.
+<h4>Ring Topology</h4>
+each node is wired to it's neighbor in a closed loop - no longer used in LANs, but still used in WANs
+<img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/8106-1627646344482-net_fig08_03.png" style="width:600px; height:400px">
+<h4>Bus Topology</h4>
+<img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/805-1627646387094-net_fig08_02.png" style="width:700px;height:400px;">
+<h4>Hybrid Topology</h4>
+Hierarchical star-   corporate networks are often designed in a hierarchy, also known as a tree topology. This can be combined with a star topology to implement each node in the overall tree. The links between nodes in the tree are referred to as backbones or trunks because they aggregate and distribute traffic from multiple different areas of the network.
+Hierarchical star-mesh-  Alternatively, nodes at the top of the hierarchy can be configured in a partial or full mesh for redundancy. Switches lower in the hierarchy establish star topologies that connect end systems to the network.
+Star of stars-  A WAN might be configured as a hub-and-spoke between a central office and branch offices, with each site implementing a star topology to connect end systems. This is also referred to as a snowflake topology.
+Star with ring-  Alternatively, a ring topology might be used to connect geographically separate sites, with each site implementing a star topology to connect end systems.
+<h3>Topic 8b Explain Tiered Switching Architecture</h3>
+    give alternate paths and redundancy - the more redundancy can take up high bandwidth channels, though, so watch out.
+      having redundant paths also introduces loops and that can lead to it's own problems.
+    to keep from having loop issues get switches with 'STP' Spanning Tree Protocol -- helps solve looping troubles
+    -- it is important to manually configure the STP [Spanning Tree Protocol]
+<h4>Three-Tiered Network Hierarchy</h4>
+    Hierarchical Models Break Down large and complex network design into smaller sections based on function performed.
+
+    Cisco's Design Principle for 'Three-Tiered Hierarchy': 
+        <b>Access</b> [aka Edge Layer] allows end users to connect - End Systems connect to switches in a star topology. NO Direct Links between access switches.
+        
+        <b>Distribution</b> [aka Aggregation Layer] provides fault-tolerant interconnections between access blocks and either core or distribution blocks. 
+                    Each Access switch has full or partial mesh link to each router / switch in it's distribution layer
+        <i>"Layer 3 switches work on the principle of "route once, switch many," which means that once a route is discovered, it is cached with the destination MAC address and subsequent communications are switched without invoking the routing lookup. While a router uses a generic processor and firmware to process incoming packets, a layer 3 switch uses an 
+            application-specific integrated circuit (ASIC). This can have an impact on the relative performance of the two types of devices. Layer 3 switches can be far faster, but they are not always as flexible. Layer 3 switches cannot usually perform WAN routing and work with interior routing protocols only. Often layer 3 switches support cabled Ethernet only."</i>            
+        
+        <b>Core</b> The Core Layer provides highly available network backbone. client and server computers do not attach directly to the core. 
+        <i>" Its purpose should be kept simple: provide redundant traffic paths for data to continue to flow around the access and distribution layers of the network. Routers or layer 3 switches in the core layer establish a full mesh topology with switches in distribution layer blocks."</i>
+   <img src="https://s3.amazonaws.com/wmx-api-production/courses/17591/images/8483-1627646454188-net_fig08_07.png" style="width:600px;height:500px;">
+<h4>Spanning Tree Protocol</h4>   
+<h4>Spanning Tree Protocol Configuration</h4>         
+    *Set the priority value to make the choice of one switch as root
+   
+Ports can be in the following states:
+            
+State        Forwards Frames?    Learns MACs?    Notes
+
+Blocking           No               No           Drops all frames other than BPDUs.
+
+Listening          No               No           Port is listening for BPDUs to detect loops.
+
+Learning           No               Yes          The port discovers the topology of the network and builds the MAC address table.
+
+Forwarding         Yes              Yes          The port works as normal.
+
+Disabled            No               No          The port has been disabled by the administrator.
+
+
+** if the ports on all switches are in forwarding or blocking states then the network is "Converged"
+   <b>Converged</b> - all ports in forwarding or blocking states
+
+Rapid STP [RSTP] - blocking, listening and disabled states are aggregated into a 'discarding' state.
+<h4>Switching Loop and Broadcast Storm Issues</h4>
+Switching Loop - Troubleshooting issue where layer 2 frames are forwarded between switches or bridges in an endless loop
+Broadcast Storm - Traffic that is recirculated and amplified by loops in a switching topology, causing network slowdowns and crashing switches.
+
+<i>"If there is a loop, spanning tree should shut down the port. This will isolate the problem to a segment of the network. Inspect physical ports that correspond to the disabled interfaces for looped connections. At the patch panel, this could mean a patch cable that connects two ports on the same switch. On the office floor, it could mean a patch cable between two wall ports. Check the switch for log events related to MAC address flapping.
+
+    If a broadcast storm occurs on a network where STP is already enabled, you should investigate the following potential causes:
+    
+    --Verify compatible versions of STP are enabled on all switches.
+    --Verify the physical configuration of segments that use legacy equipment, such as Ethernet hubs.
+    --Investigate networking devices in the user environment and verify that they are not connected as part of a loop. Typical sources of problems include unmanaged desktop switches and VoIP handsets."</i>
+<h3>8c Explain Virtual LANs</h3>
+    VLANs allow us to reduce the size of subnets and provide basic security.
+1) should we divide on physical location or job roles, or sensitivity of information.
+    (in the example we will divide by job role)
+    on his cisco terminal type 'configure terminal' - to go into 'config'
+    if you type in a non-existing vlan (ex: 'vlan 2') then vlan 2 will be created and you can configure it.
+       ##   vlan 2
+       ##   name Sales
+       ##   vlan 3
+       ##   name Accounting
+       ##   vlan 4
+       ##   name Marketing
+       type 'exit' to go back out of the vlan config
+       ## do show vlan                            -- displays vlans
+       now displays created vlans with their names
+       need to put ports in the correct VLAN -- in this ex: /13,/14/,/15 are Sales; /19,/20,/21 are Accounting; /16,/17,/18 are Marketing.
+       ##    int range fa1/0/16 - 18              -- allows you to configure a range of ports [int = interface in cisco terminal]
+       ##    switchport access vlan 4
+       ##    do show vlan                          -- now displays that ports are associated with 'vlan 4 Marketing' 
+
+what if we have marketing people on one floor using 1 switch and marketing people on another floor using a different switch?  'Trunks'
+<b>Trunk</b> - carry ALL the VLANs
+<b>Access Port</b> - carries a single VLAN
+<h4>Virtual LAN IDS and Membership</h4>
+
+     
+
+<h2>Lesson 09 Explaining Transport Layer Protocol</h2>
+    <h3></h3>
+
+
+
+
+<h4>lab Use Network Scanners: nmap</h4>
+TCP is stateful; UDP is stateless
+<b>nmap</b>
+<b>Netdiscover</b> - 
+
+
+
+</pre>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subnetting</title>
+</head>
+<body>
+    <h1>Subnetting Notes</h1>
+        know Binary -> Decimal conversion & Hex to Decimal conversion
+<pre>
+    _128_ _64_ _32_ _16_ _8_ _4_ _2_ _1_    -- binary values in the octect = 0-255 possible = 256 possible values
+
+<h2>Subnetting Intro</h2>
+<b>Classful addressing</b>     
+    Class A: 1-126    - 255.0.0.0    -- 3 octets for Host side 
+    Class B: 128-191  - 255.255.0.0  -- 2 octets for Host side
+    Class C: 192-223  - 255.255.255.0 - 1 octets for Host side
+
+    ex: <i>192.168.45.21</i> = This is a Class C address.
+                -The 'Net side' address = 192.168.45
+                -That leaves .21 as the 'Host side' address
+
+Class A range = 10.0.0.0 -> 10.255.255.255
+Class B range = 172.16.0.0 -> 172.31.255.255
+    Loopback range = 127.0.0.0 -> 127.255.255.255 - is in Class B
+    APIPA range = 169.254.0.1 -> 169.254.255.254
+Class C ragne = 192.168.0.0 -> 192.168.255.255
+multicast = 224.0.0.0
+Experimental = 240.0.0.0
+Broadcast = 255.255.255.255
+
+<b>IP Numbering</b>
+Subnet Mask tells us what is on the Network side and what is on the Host side. 
+A: 255.0.0.0     /8
+B: 255.255.0.0   /16
+C: 255.255.255.0 /24
+
+--Classless uses 'sider notation' to break the addresses into smaller chunks.  
+  The 'Sider Notation' references how many bits are on the Network side of the address
+    Classless can have additional sider notation
+           class A: /8  |  /09  /10  /11  /12  /13  /14  /15  /16
+           class B: /16 |  /17  /18  /19  /20  /21  /22  /23  /24
+           class C: /24 |  /25  /26  /27  /28  /29  /30  /31  /32
+                          (128)(192)(224)(240)(248)(252)(254)(255) = subnet mask
+                           ___  ___  ___  ___  ___  ___  ___  ___
+                           128   64   32   16   8    4    2    1    = # of Hosts 
+
+                            2    4    8    16   32   64  128  256   = # of Subnets
+
+  ex: using /26 network we have 4 Subnets, 64 TOTAL Hosts (Usable Hosts = 62) per subnet, with a subnet mask of 192 
+            -we you will have subnet mask of 255.255.255.192 
+            -we subtract 2 (-2) from the Total Hosts to get the Usable Hosts; remember 1st address is 'Network ID' and Last address is 'Broadcast'
+ 
+ Remeber there are 4 octets for an address & Class B has 2 octets (Class A has 3 HOST octets):
+       
+          Class B Range                          Class C Range
+ ___   ___  ___   ___  ___  ___  ___  ___ . ___ ___ ___ ___ ___ ___ ___ ___
+32768 16384 8192 4096 2048 1024  512  256   128  64  32  16  8   4   2   1 
+
+
+ if we use /23 network as an example it will lie in the 512 area 
+   -- we know we have 128 Subnets, 512 Hosts(??) and a subnet mask of 255.255.254.0
+
+
+Prof Rondeau Suggests writing out the chart first thing during testing: 
+
+          128  192  224  240  248  252  254  255  -- Subnet Mask
+          ___  ___  ___  ___  ___  ___  ___  ___
+Class C:  128   64   32   16   8    4    2    1   -- Hosts /24-/32
+Class B:                           ...  512  256  -- Hosts /16-/23
+           2    4    8    16   32   64  128  256  -- Subnets 
+
+ex: /19 network will have 8 subnets, 8192 Total Hosts (8190 Usable) / subnet, subnet mask of 255.255.224.0 because it is class B
+
+<h2>Subnetting Intermediate</h2>
+ex 01: 192.168.45.21 /24  -- we know that /24 is a class C network. 
+    we know the subnet mask will be 255.255.255.0
+    -- we find the 'Network ID' by 'ANDing' the Host IP address and the Subnet Mask 
+    In the above example the Network ID is: 192.168.45.0
+    
+    the Host information we have obtained is: Host address .21 /24, subnet mask 0, Network ID 0
+      we have the full last octet for USABLE addressing. 192.168.45.1 -> 192.168.45.254 (not the host or the broadcast)
+
+ex 02: 192.168.45.21 /25 -- 1 extra bit changes everything  
+   Subnet Mask is now 255.255.255.128  (in the previous example there are 256 addresses on 1 subnet, now 128 addresses each on 2 subnets [256 total still])  
+     will have 2 subnets 0-127 & 128-255 (totals)
+       usable subnet addressess: 1->126 & 129->254
+
+ex 03: 192.168.45.21 /26 -- changed again
+    Subnet Mask = 255.255.255.192  --- ANDing it up again (no overlap, still)
+    192.168.45.0 Network ID - with 4 subnets of 64 Total Hosts per Subnet
+       1st 192.168.45.0   -> .63
+       2nd 192.168.45.64  -> .127
+       3rd 192.168.45.128 -> .191
+       4th 192.168.45.192 -> .255
+  Usable addressess will be -2 per subnet for ID and broadcast.
+
+ex 04:  192.168.45.21 /30 -- big subnet mask increase 
+   subnet Mask: 255.255.255.252 -- ANDing between 21 & 252   
+     resulting Network ID = 192.168.45.20  == the Network ID for the Subnet that address in ex: 04 belongs to.
+      there will be 64 Subnets with 4 Total Hosts each (2 usable hosts each?)
+
+ex 05:  192.168.45.101 /28
+      subnet Mask: 255.255.255.240  -- ANDing 101 & 240
+      there will be 16 subnets with 16 hosts on each. 
+      the Network ID will be: 192.168.45.96 -- host 101 is a member of Network .96
+        to find the subnet we divide the host amount by the host id -- this will give the subnet group
+
+ex 06:  192.168.45.21 /23  -- Class B address
+   subnet mask: 255.255.254.0    
+    there will be 128 subnets with 512 Host addressess per subnet breakdown.
+     the Network ID will be: 192.168.44.0
+  *since there are 512 hosts then it will be larger than 1 octet (octet is only 256 [0-255])
+    and you will have to use to ranges, ex: 192.168.45.0->255 + 192.168.46.0->255
+
+<h2>Variable Length Subnetting</h2>
+    ex 01: Lab has 50 computers, office has 10 computers, HR office has 10 computers
+            Lab:     50 - needs 50 hosts - that will be /26 
+            Office:  10 - this will be /28
+            HR:      6 - this will be /29
+    we are starting the Network ID @ 192.168.45.0 our /26 network has 64 hosts [0 - 64] per subnet. we alot the first subnet [0-63]
+                                     192.168.45.64 starts our /28 network and we alot 16 hosts for that subnet range giving us 63 + 16 [79]
+                                     192.168.45.80 starts the /29 network and there are 8 hosts for that range 80-87 will be our last 8 addressess.    
+
+
+</pre>
+</body>
+</html>
