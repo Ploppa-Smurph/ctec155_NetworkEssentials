@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTEC-155 wk07 Lesson 10: Explaining Network Services and 11: Explaining Network Applications</title>
+</head>
+<body>
+<h1>CTEC-155 wk07 Lesson 10: Explaining Network Services and 11: Explaining Network Applications</h1>    
+<pre>
+    <h2>Lesson 10: Explaining Network Services</h2>
+        we have covered Physical, Data Link, Network, and Transport Layer Technologies and Protocols that underpin connectivity
+
+        this lesson focuses on application protocols that perform low-level network aperation tasks -- we will learn the protocols and ports they rely upon
+
+    <h3>10A Explain the Use of Network Addressing Services</h3>
+      every Host must have an IP address to communicate on a TCP/IP network.
+            either manually assigned or auto assigned 
+    <h4>DHCP Dynamic Host Configuration Protocol</h4>
+        provides auto method for allocating IP address, subnet mask, default gateway and additional optional parameters
+
+        1) DHCPDISCOVER - packet is sent from client - initializes communication
+                sends using UDP: server listens on port 67; client listens on port 68 (ports 67 & 68)
+        2) DHCPOFFER - server responds with a packet containing the IP address and other configuration information
+        3) DHCPREQUEST - client 'may' choose to accept the offer
+        4) DHCPACK - server responds & client broadcasts ARP message (Address Resolution Protocol) to check address is unused
+        
+        address must be renewed / rebinded before address expires. if address is no longer available the system will release the IP address and start DHCPDISCOVER process again.
+    <h4>DHCP Server Configuration</h4>
+        'Scope' = the range of IP addressess that the DHCP Server contains for a single subnet
+                Scope is defined with a starting IP address and ending IP address along with subnet mask.
+            NO Scope can cover more than 1 subnet, and NO subnet can cover more than 1 Scope, it is a 1:1 ratio
+
+        <i>'DHCP for multiple subnets is usually handled by configuring relay agents to forward requests to a central DHCP server.'</i>    
+    <h4>DHCP Options Configuration</h4>    
+        <b>DHCP Lease Time and Available Leases</b> client can renew lease when 1/2 the lease timer (T1 timer) has elapsed.
+           --the default timer (T2 timer) is set for 87.5% of the lease time elapsing 
+        <i>'A Windows client can be forced to release a lease by issuing a command such as ipconfig. In Linux, the utility dhclient is often used for this task, though modern distributions might use NetworkManager or systemd-networkd. '</i>
+        <b>DHCP Options</b>   
+            - The default gateway (IP address of the router).
+            - The IP address(es) of DNS servers that can act as resolvers for name queries.
+            - The DNS suffix (domain name) to be used by the client.
+            - Other useful server options, such as time synchronization (NTP), file transfer (TFTP), or VoIP proxy.
+        default (global) options can be overridden using scope-specific options
+    <h4>DHCP Reservations and Exclusions</h4>        
+        dynamic assignment doesn't gurantee the same client will retain the same IP over time.
+
+        you can either configure a static IP using IP Addressess outside of the DHCP Scope. Often the DHCP server can be configured to use a static address for certain clients:
+           things you might want to have a static IP would be: Network Printer, or Wireless Access Point (WAP)
+      
+       Alternatively you can create a 'reservation' - which assigns a pre-reserved or persistent IP to a given system based on it's hardware address or other ID   
+         This is known as 'Fixed Address Assignment or Static Address Assignment', this differs from 'Static Allocation' because the admin does not predetermine the specific IP address that will be leased.
+    <h4>DHCP Relay and IP Helper</h4>
+        Routers do not normally 'forward' broadcast traffic, therefore each Broadcast Domain must have it's own DHCP server.
+       
+        To avoid configuring multiple DHCP servers for large networks we use a 'DHCP Relay'
+
+        DHCP Relay = agent that is configured to provide forwarding of DHCP traffic between subnets. 
+            Routers that provide DHCP Relay are <b>RFC 1542</b> compliant.
+        
+        IP Helper = Command set in a router that supports DHCP Relay and other broadcast forwarding functionality.
+           <i><b>interface eth1
+
+            ip helper-address 10.1.0.200
+            
+            interface eth2
+            
+            ip helper-address 10.1.0.200</b></i>
+    
+        UDP forwarding is a more general application of the same principle -- it is used for NTP (Network Time Protocol) and other broadcast-based application
+    <h4>DHCPv6 Server Config</h4>        
+            IPv6's SLAAC (Stateless Address AutoConfiguration) detects routers (default gateway) and generates host address already.
+         so DHCPv6 is often used to provide additional option settings rather than lease host IP addresses. 
+
+         IPv6 does not support 'broadcast' so clients 'multicast' address <i><b>ff02::1:2</b></i> to discover a DHCP Server.
+            DHCPv6 uses port 546(client) and 547(server) [unlike port 68 & 67 in DHCPv4]
+    <h3>Topic 10B Explain the Use of Name Resolution Services</h3>    
+            look into host name resolution for TCP/IP networks
+    <h4>Host Names and Fully Qualified Domain Names</h4>
+            <b>Host Name</b> - assigned to a computer by the admin, usually when OS is installed
+            <b>FQDN [Fully Qualified Domain Name]</b> - Host name + domain suffix. 
+                ex: nut.widget.example -- Host = nut
+                                          Domain Suffix = widget.example
+                                          Domain Name = widget
+                                          TLD [Top Level Domain] = .example
+        
+        <i>'When you are configuring name records, an FQDN must include the trailing period to represent the root, but this can be omitted in most other use cases.'</i>                                  
+
+        the same Domain Name may be registered within different top-level domains: 
+                ex: widget.example  vs widget.example.uk
+        
+        FQDNs must follow certain rules:
+
+            - The host name must be unique within the domain.
+            - The total length of an FQDN cannot exceed 253 characters, with each label (part of the name defined by a period) no more than 63 characters (excluding the periods).
+            - A DNS label should use letter, digit, and hyphen characters only. A label should not start with a hyphen. Punctuation characters such as the period (.) or forward slash (/) should not be used.
+            - DNS labels are not case-sensitive.
+    <h4>DNS [Domain Name System]</h4>
+            distributed name server databases that contain info on domain and hosts within those domains. 
+
+            Top of DNS Hierarchy = root (represented by 'null' label -- only a '.') = there are 13 root level servers,  A - M.
+            Below root = TLD [Top Level Domains] ex: 'generic' = .com, .org, .net, .info, .biz; 
+                                                     'sponsored' = .gov, .edu
+                                                     'country code' = .uk, .ca, .de
+                ICANN [icann.org] manages DNS and 'generic' TLDs                                       
+    <h4>Name Resolution using DNS</h4>        
+            Name Resolution typically begin in the browser.
+             1) a user will present an FQDN 
+             2) the client app (refered to as a 'Stub Resolver') checks local cache for mapping. 
+                    if No mapping is found the request is forwarded to it's Local Name Server
+
+        most queries between name servers are 'iterative lookups' [server responds with information from it's own data store only]
+            
+            'recursive lookups' = DNS query where server submits additional quereis to other server to obrain requested information.
+        
+        <i>'Most Internet-accessible DNS servers disable recursive queries. Recursive resolvers are typically only accessible by authorized clients-subscribers within an ISP's network or clients on a private LAN, for instance.'</i>
+    <h4>Resource Record Types</h4>
+            <b>Resource Records</b> = <i>'Data file storing information about a DNS zone. The main records are as follows: A (maps a host name to an IPv4 address), AAAA (maps to an IPv6 address), CNAME (an alias for a host name), 
+                  MX (the IP address of a mail server), and PTR (allows a host name to be identified from an IP address).'</i>
+            <b>Authoritative Name Server</b> = <i>'DNS server designated by a name server record for the domain that holds a complete copy of zone records'</i>      
+
+            <b>SOA [Start of Authority]</b> record identifies the Authoritative Name Server. the SOA also includes contact info for the zone and a serial number for version control.
+    <h4>Host Address and Canonical Name Records</h4>                                                 
+        an 'Address Record' [A] is used to resolve host name to an IPv4 address 
+                            [AAAA] is used to resolve to IPv6 address
+
+     <i>'DNS uses the UDP transport protocol over port 53 by default, and UDP has a maximum packet size of 512 bytes. Due to the much larger address sizes of IPv6, AAAA records can exceed this size. This can result in UDP packets being fragmented into several smaller packets. 
+            This can result in these packets being blocked by firewalls if they are not configured to expect them. Network administrators should check that their DNS servers can accept these transmissions and that intermediary components are not blocking them.'</i>
+     
+    "CNAME records are also often used to make DNS administration easier. For example, an alias can be redirected to a completely different host temporarily during system maintenance."  
+
+    <b>CNAME</b> [Canonical Name] = alias 
+    
+    <i>'There is nothing to stop an administrator configuring multiple address records to point different host names to the same IP address. Using CNAME records is usually considered better practice, however. It is also possible to configure multiple A or AAAA records with the same host name 
+             but different IP addresses. This is usually done as a basic load balancing technique, referred to as round robin DNS.'</i>
+
+    <h4>Mail Exchange, Service, and Text Records</h4>    
+        <b>MX record (Mail Exchange)</b> used to identify an email server for a domain. 
+                typical network has mulitple servers to provide redundancy, each with an MX record
+                   each server is given preference value (lowest entry preferred)
+          MX hosts must have an associated A or AAAA record and MUST NOT point to a CNAME record.
+
+        <b>SRV records (Service)</b> contain service name and port that hosts a particular application
+             SRV records are often used to locate VoIP or media servers 
+              SRV records are essential par of Microsoft's Active Directory
+              SRV records are used by clients to locate domain controllers
+              SRV records can be configured with priority value (like MX Record)
+        <b>Text records (TXT)</b>
+            SPF records (Sender Policy Framework) = list of IP addressess or Names of server that are permitted to send email (combat Spam)
+            DKIM records (DomainKeys Identified Mail) = also determines if you will accept mail from a given source, can use encrypted signatures.
+    <h4>Pointer Records</h4>
+        DNS records have 2 zones, forward or reverse lookups.
+        
+          forward lookup returns IP address; conversely reverse lookup finds the name associated with the IP address.
+                Reverse Lookup info is stored as a PTR (Pointer) record.
+            reverse includes appended 'in-addr.arpa'
+        <i>For example, the reverse lookup for a host record containing the IP address 198.51.100.1 is:
+
+                1.100.51.198.in-addr.arpa</i>
+        IPv6 uses the ip6.arpa domain; each of the 32 hex characters in the IPv6 address is expressed in reverse order as a subdomain. For example, the IPv6 address:
+
+                <i>2001:0db8:0000:0000:0bcd:abcd:ef12:1234
+                
+                is represented by the following pointer record:
+                
+                4.3.2.1.2.1.f.e.d.c.b.a.d.c.b.0.0.0.0.0.0.0.0.0.8.b.d.0.1.0.0.2.ip6.arpa</i>        
+    <h4>Guidlines for Deploying DNS</h4>                
+            1) setup primary and secondary name server
+                you must create the forward lookup zone you must create a record for the Host, MX, and SRV record
+            2) create primary zone (ex: 'networkplus.local')        
+            3) right click & 'create new host' -> give it a name, FQDN, and give it an IP address. finish
+            4) right click & 'create new mail' ->  
+            5) create 'forwarder' ->  
+    <h3>Topic 10C Configure DNS Services</h3>
+    <h4>DNS Server Configuration</h4> 
+    <b>DNS Server Types</b> -DNS server is usually configured to listen for queries on UDP port 53.
+
+    <i>'Larger transfers might be required if IPv6 is deployed on the network or if the DNS servers are using a security protocol (DNSSEC).'</i>
+
+    --Primary means that the zone records held on the server are editable. 
+    --Secondary means that the server holds a read-only copy of the zone.
+
+    server that holds complete records for a domain can be defined as 'authoritative'
+
+
+
+    <b>DNS Caching</b> - holds recent query results for quicker indexing?
+    common TTL [Time to Live] values include 300 (5 minutes), 3,600 (1 hour), 86,400 (1 day), and 604,800 (1 week).
+
+    DNS caching is performed by both client and server computers
+
+    <i>'Planning for a record change involves reducing the TTL in the period before the change, waiting for this change to propagate before updating the record, 
+           and then reverting to the original TTL value when the update has safely propagated.'</i>
+<h4>Internal vs External DNS</h4>           
+        must prevent DNS Spoofing - where hacker supplies false name resolutions to clients
+    Internal DNS -- in a business or network that used to interact with systems inside the same subdomain --- not accessible from the internet.
+
+    External DNS -- records that internet clients must be able to access. must be hosted on a name server that is accessible over the internet.
+
+    the function of the 'Resolver' is to perform recursive queries requested by client systems ('stub resolvers').
+
+    <i>'A recursive resolver must be configured with a root hints file so that it can query the whole DNS hierarchy from the root servers down. DNS servers should allow recursive queries only from authorized internal clients. It is also a good idea to separate the DNS servers used to host zone records from ones used to service client requests for nonauthoritative domains.'</i>
+<h4>nslookup</h4>    
+    verify name of host [windows]    $ ipconfig /all   (displays FQDN of local host)
+                        [linux]      $ hostname --fqdn
+                        [powershell] $ Resolve-DnsName
+
+        Name Server Lookup = nslookup (in windows)
+    If nslookup is run without arguements then the tool is started in interactive mode. 
+
+    <i>'PowerShell® provides a cmdlet called Resolve-DnsName, which allows a more flexible method of testing name resolution than nslookup, as it allows testing of the different methods of name resolution (HOSTS file, DNS cache, and DNS server).'</i>
+<h4>dig</h4>
+        Domain Information Groper (dig) - Utility to query a DNS and return information about a particular domain name.
+<h4>Name Resolution using DNS</h4>        
+       get in control panel -> network and internet -> network and sharing center -> change adapter setting -> right click ethernet and choose properties.
+            we can get a lot of information by right clicking the ethernet and choosing status
+
+    $ ipconfig /flushdns
+
+    $ nslookup www.comptia.org 
+    $ nslookup www.google.com 8.8.4.4
+<h2>Lesson 11: Explaining Network Applications</h2>
+        DHCP and DNS support basic network operations.
+           additional application protocols allow for file/printer sharing, websites, databases, email, voice and video calling.
+
+    learn ports and performance / security requirements.
+<h3>11A Explain the Use of Web, File/Print, and Database Services</h3>       
+      <i>'services that form part of the TCP/IP protocol suite are mostly client-server protocols and applications. 
+            Client-server applications are based around a centralized server that stores information and waits for requests from clients.'</i>  
+<h4>HTTP Hyper Text Transfer Protocol  - HTTP = TCP port 80; HTTPS = TCP port 443</h4>            
+        web apps and websites use HTTP - enables clients to request resources from HTTP server @ TCP port 80
+    <b>HTTP Headers and Payload</b>
+        response and request formats are defined in the header.
+            payload is usually used to serve HTML pages
+    HTTP is a stateless protocol; this means that the server is not required to preserve information about the client during a session.
+
+<b>Web Servers</b> 
+        -Dedicated server  -The ISP allocates your own private server computer. This type of service is usually unmanaged (or management comes at additional cost).
+        -Virtual Private Server (VPS)  -The ISP allocates you a virtual machine (VM) on a physical server. This is isolated from other customer instances by the hypervisor.
+        -Cloud hosting  -Your website is run on a cloud over several hardware computers, allowing more scalability if demand patterns change.
+        -Shared hosting  -Your website is hosted within a private directory on a shared server. Performance can be severely affected by other sites hosted on the server, because all the sites are competing for the same resources.
+
+        3 main we server platforms are nginx, Apache, and Microsoft Internet Information Server (IIS)
+<h4>Secure Socket Layer / Transport Layer Security</h4>        
+        <b>SSL [Secure Socket Layer]</b> - original & obsolete
+        
+        <b>TLS [Transport Layer Security]</b> - works as a layer between App and Transport Layer or TCP/IP stack [OSI's Session Layer]
+             used to encrypt the TCP connection, when used with HTTP = HTTPS (HTTP Secure).
+                -- TLS can be used to secure other app protocols: FTP, POP3/IMAP, SMTP, and LDAP
+        <b>DTLS [Datagram Transport Layer Security]</b> - TLS and UDP for VPN (Virtual Private Networking) solutions.
+    HTTPS encrytped traffic is sent over TCP port 443 [HTTP unencrypted = TCP port 80]          
+       shows https: and padlock icon in browser
+<h4>FTP File Transfer Protocol - FTP = TCP port 21, TFTP = UDP port 69</h4> 
+        Active vs Passive FTP
+          <b>Active</b> - in active mode the client sends a PORT command specifying the chosen data connection port number (typically n+1)
+              the server then opens the data connection between the chosen client port and TCP port 20 on the server.
+          <b>Passive</b> - client opens data port (typically n+1) and sends PASV command to server port - server opens a random high number port and sends information to client using PORT command.
+               the client then initiates the connection between the two ports.
+          
+        active can be a configuration problem for some firewalls.
+            not all FTP servers or clients can operate in passive mode.
+    <b>TFTP Trivial File Transfer Protocol</b>
+        connectionless protocol, does not provide gurantee of delivery.
+          - suitable for transferring small files.       
+          - supports 'reading' [GET] and 'writing' [PUT] of files not directory browsing, file deletion, or any additional features of FTP
+          - mostly for legacy devices like switches and routers
+<h4>SFTP Secure File Transfer Protocol - SFTP = SSH over TCP port 22</h4>
+        requires SSH server that supports SFTP
+
+    additional way is to use SSL/TLS: 
+        <b>Explicit TLS (FTPES)</b> -Use the AUTH TLS command to upgrade an unsecure connection established over port 21 to a secure one. This protects authentication credentials. The data connection for the actual file transfers can also be encrypted (using the PROT command).
+        <b>Implicit TLS (FTPS)</b> -Negotiate an SSL/TLS tunnel before the exchange of any FTP commands. This mode uses the secure port 990 for the control connection.
+        FTPS is difficult to configure over firewalls, so FTPES [Explicit]is preferred.
+<h4>File and Print Services - SMB = TCP port 445, </h4>        
+        <b>SMB Server Message Block</b> Samba on windows -- allows sharing of directories and printers between windows and linux / unix
+           Legacy used NetBIOS port 139
+           current uses TCP port 445
+        <b>Remote Printer Protocols</b>
+             -<b>Port 9100</b> -    
+             -<b>IPP Internet Printing Protocol</b> - uses TCP port 631 - better support for status messaging than 9100   
+             -<b>WSD Web Services for Devices / AirPrint</b> - plug-and-play with bidirectional status messaging - allow for secure connection to print device   
+             -<b>Printer Sharing</b> - host connects to printer using local or network connection. uses SMB, status messaging sent via host that shared printer.
+<h4>Database Services</h4>
+    SQL = Structured Query Language [SELECT] [UPDATE]             
+
+-<b>Oracle SQL*Net</b> = TCP/1521    
+-<b>Microsoft SQL</b> = TCP/1433    
+-<b>MySQL & MariaDB</b> = TCP/3306    
+-<b>PostgreSQL</b> = TCP/5432    
+
+NoSQL normally accessed via API [Application Programming Interface] over HTTPS
+<h3>11B Explain the Use of Email and Voice Services</h3>
+        different performance demands on the network
+<h4>SMTP Simple Mail Transfer Protocol - SMTP = port 25 & port 587</h4>
+  STARTTLS method of securing connection with TLS -- more widely used than SMTPS
+<h4>Mailbox Access Protocols</h4>
+        <b>POP Post Office Protocol</b> = TCP port 110 -- messages are deleted from server after download, though some clients have option to leave message on server.
+        <b>IMAP Internet Message Access Protocol</b> = TCP/143 unsecure
+        <b>IMAPS</b> = TCP/993
+<h4>Configuring Application Protocols video</h4>
+<h4>Voice and Video Services</h4>
+        <b>PSTN Public Switched Telephone Network</b>
+        <b>POTS Plain Old Telephone Service</b>
+        <b>PBX Private Branch Exchange</b> hardware for routing incoming phone calls
+        <b>VoIP-Enabled PBX</b> - replacing old PBX with hybrid solution, software
+<h4>VoIP Protocols</h4>        
+        <b>Session Control</b> - establish, manage and terminate communication session
+        <b>Data Transport</b> - delivery of video or voice data
+        <b>Quality of Service [QoS]</b> - helps ensure voice or video is free from problems (dropped packets, etc.)
+    
+<b>Session Initiation Protocol [SIP]</b> - widely used Session Control - users are assigned unique SIP addresses
+        SIP URI [Uniform Resource Indicator] - the unique SIP Address assigned to users
+    UDP or TCP/5060 [unsecure]; or UDP/5061 or TCP/5061 for Secure SIP-TLS 
+
+<b>Real-Time Transport Protocol and RTP Control Protocol</b>    
+        principal protocol for delivering data in real-time using UDP [User Datagram Protocol]
+<h4>VoIP Phones</h4>
+        echo test call
+<h4>Connecting Phone to VoIP System video</h4>
+
+<h4>Voice Gateways</h4>
+        means of translating between VoIP and legacy voice equipment and networks.
+        <b>FXO Foreign Exchange Office</b> gateway
+        
+        <b>FXS Foreign Exchange Subscriber</b> gateway
+</pre>
+</body>
+</html>
