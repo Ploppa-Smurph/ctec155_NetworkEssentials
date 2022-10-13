@@ -28,12 +28,23 @@ Need to read and take notes on chapter 09, 11, 12, 13
 2 computers are on different VLAN subnets -- configure a router
 
     $ iftop  = network monitoring tool on the router 
-
+        -$  sudo iftop -i eth1          == will monitor traffic on eth1 interface 
+ 
+- robocopy  -- displays performance information 
 <h3>Assited Lab: Configure Syslog</h3>
+    -The line $template DynamicFile,"/var/log/%HOSTNAME%.log" defines a template format named DynamicFile that creates a log named for the server's hostname. In this scenario, it will generate a log file named kali.log that originates from the Kali Linux server.
+    -The line *.* ?DynamicFile states that all Rsyslog facilities (services and applications) of all severities (alert levels) will be sent via the template.
+    -The line & ~ stops any process matching after this point.
 
+Mousepad = Kali's desktop text editor
+
+vyos only has 'vi' installed -- not vim -- save and exit by hitting 'esc' and entering command ':wq'
 <h3>Assited Lab: Configure Secure Access Channels</h3>
+        --secure the SSH remote administration tool. First, you will confirm password authentication, and then you will configure security warnings. Next, you will configure key-based authentication and prevent the root user from authenticating over SSH. Finally, you will manage SSH log file
 
+**Each time you change a configuration file, you must restart the service for the change to take effect.
 <h3>Assisted Lab: Analyze Application Security Configurations</h3>
+
 
 <h3>Applied Lab: Verify Service and Application Configuration</h3>
 
