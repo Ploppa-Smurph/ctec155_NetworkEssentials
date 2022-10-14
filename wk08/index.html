@@ -35,7 +35,8 @@ Need to read and take notes on chapter 09, 11, 12, 13
 <h3>Assited Lab: Configure Syslog</h3>
     -The line $template DynamicFile,"/var/log/%HOSTNAME%.log" defines a template format named DynamicFile that creates a log named for the server's hostname. In this scenario, it will generate a log file named kali.log that originates from the Kali Linux server.
     -The line *.* ?DynamicFile states that all Rsyslog facilities (services and applications) of all severities (alert levels) will be sent via the template.
-    -The line & ~ stops any process matching after this point.
+    -The line & ~ stops any process matching after this point
+
 
 Mousepad = Kali's desktop text editor
 
@@ -45,21 +46,45 @@ vyos only has 'vi' installed -- not vim -- save and exit by hitting 'esc' and en
 
 **Each time you change a configuration file, you must restart the service for the change to take effect.
 <h3>Assisted Lab: Analyze Application Security Configurations</h3>
+In this activity, you will use an email client to examine the effect of using unsecured protocols by intercepting messages with Wireshark.
 
 
+**In a zero-trust environment, even the internal LAN is untrusted. Someone could still be running packet sniffing software and may intercept such sensitive messages.    
 
+IMAP = TCP
+DNS = UDP
+
+** the IMAP server is unfailingly polite, and for another, the account credentials are easily discoverable. You are sniffing your own host's traffic here, but there are means for attackers to sniff the same packets. With account passwords, you must also consider the possibility of rogue administrators.
 <h3>Applied Lab: Verify Service and Application Configuration</h3>
+To complete this lab, perform the following tasks:
 
+Scan network targets
 
+Capture network traffic
 
+Configure DHCP services
 
+Troubleshoot name resolution
 
+Secure SSH authentication
 
+Configure centralized log files
 
+Use network performance monitoring tools
 
+<b>nmap</b> scan options:
+    -(no option)	Basic scan
+    -sn	Simple scan
+    -sP	pin sweep scan
+    -A	Extensive scan
+    -O	OS scan
+    --top-ports x	x number of common ports
 
+** the lower Wireshark pane. This pane is named 
+  Packet Bytes. In the lower right corner is a long string of text. Read the text carefully
+<h3>Lesson 12 Quiz</h3>
 
-
+<h3>Lesson 13 Quiz</h3>
 
 
 
