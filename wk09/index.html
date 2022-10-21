@@ -10,14 +10,95 @@
 <h1>CTEC-155 wk 09 Lesson 14 Supporting and Troubleshooting Secure Networks</h1>
 <pre>
 <h2>Topic 14A Compare and Contrast Security Appliances</h2>
-<h3></h3>    
+Security appliances such as firewalls, proxy servers, and intrusion detection/prevention systems enforce access controls to ensure authorized use of the network.
+ They perform a filtering function to analyze the properties of connection requests and then allow, deny, and/or log them as appropriate.
+<h3>Network Sementation Enforcement</h3>
+NSE Network Segmentation Enforcement = Enforcing a security zone by separating a segment of the network from access by the rest of the network. 
+  -This could be accomplished using firewalls or VPNs or VLANs. 
+     -A physically separate network or host (with no cabling or wireless links to other networks) is referred to as air-gapped.     
+<h3>Screened Subnets</h3>
+**Perimeter network was formerly referred to as a demilitarized zone (DMZ). The DMZ terminology is now deprecated. 
+<h3>Firewall Uses and Types</h3>
+<b>Packet Filtering</b>
+<b>IP Filtering</b>
+<b>Protocol Filtering</b>
+<b>Port Filtering</b>
 
-<h2>Topic 14B</h2>
-<h3></h3>    
+<b>Stateful Inspection Firewalls</b>
+<h3>Firewall Selection and Placement</h3>
+<h4>Configure Firewall Video</h4>
+  -- allowing traffic 
+you can view the 'states' option in most firewalls = Firewalls are stateful devices
+  Firewalls are stateful, they must keep track of all traffic passing through -> if traffic was allowed or denied
+<h3>Proxy Servers</h3>
+<b>Forward Proxies</b>
+<b>Reverse Proxies</b>
+<h3>Network Address Translation</h3>
+<b>Network Address Translation (NAT)</b> - 
+<h3>Port Address Translation</h3>
+<b>Port Address Translation (PAT)</b> - 
+<h3>Defense in Depth</h3>
+<b>Network Access Control</b> - 
+<b>Honeypots</b> - 
+<b>Separation of Duties</b>
+<h3>Intrusion Detection and Prevention Systems</h3>
+<b>IDS Intrusion Detection System</b> -
+<b>IPS Intrusion Prevention System</b> -  
+<h2>Topic 14B Troubleshoot Service and Security Issues</h2>
+<h3>Troubleshooting Network Issues video </h3>    
+<h3>DHCP Issues</h3>
+<b>DHCP Server and Scope Exhaustion Issues</b>
+<b>Rouge DHCP Server Issues</b>
+<h3>Name Resolution Issues</h3>
+<b>Name Resolution Methods</b>
+<b>DNS Configuration Issues</b>
+<h3>VLAN Assignment Issues</h3>
+<h3>Uresponsive Service and Network Performance Issues</h3>
+<h3>Misconfigured Firewall and ACL Issues</h3>
+<h3>Untrusted Certificate Issues</h3>
+<h3>Other Common Issues</h3>
+<b>NTP Issues</b>
+<b>BYOD Challanges</b>
+<b>Licensed Feature Issues</b>
 
-<h2>Topic 14C</h2>
-<h3></h3>    
 
+<h2>Lesson 14 Supporting and Troubleshooting Secure Networks Quiz</h2>
+- Bastion servers are hosts in the perimeter and are not fully trusted. Proxy servers are bastion servers because they take internal requests and transmit them to the Internet to protect the internal host.
+    - The administrator will configure servers that provide public access services, such as web servers, in a perimeter network. These are bastion servers.
+        =Active directory servers are not bastion servers. Administrators would protect these servers on the internal network behind firewalls.
+        =File servers are not bastion servers. Administrators would protect these servers on the internal network behind firewalls.
+
+- Intrusion Detection System (IDS), which performs real-time analysis of either network traffic or system and application logs. It raises an alert and can log activity when it detects suspicious activity.
+        =An intrusion prevention system (IPS) raises an alert and logs suspicious activity, but, unlike an IDS, it can also provide an active response to any network threats that it matches.
+        =A firewall is software or a hardware device that protects a system or network by blocking unwanted network traffic.
+        =Network Access Control (NAC) is a system for authenticating endpoints at the point they connect to the network and can ensure that clients are running an authorized OS and have up-to-date patches and security scanner configurations.        
+
+- A stateful inspection firewall operates at Layer 5 (Session) of the OSI model. The firewall checks incoming packets to confirm whether it belongs to an existing connection.
+        =A router firewall operates at Layer 3 and has functionality built into the router firmware. Most home Internet routers/modems have this type of firewall functionality.
+        =An appliance firewall is a type of network-based, layer 2/virtual wire "transparent" firewall, and monitors all traffic passing into and out of a network segment.
+        =A packet-filtering firewall works at Layer 3 of the OSI model to inspect the headers of IP packets and is stateless which means that it does not preserve information about the connection between two hosts.         
+
+- The most likely cause is that the firewall is blocking TCP port 3389 which is the port used for remote desktop protocol (RDP) traffic.
+
+- PAT (port address translation), also known as NAPT, allocates connections a port mapping in its state table then substitutes the private IP for the public IP and forwards it to the public Internet.
+    -Network Address Port Translation (NAPT), also known as PAT, allocates connections a port mapping in its state table then substitutes the private IP for the public IP and forwards it to the public Internet.
+        =In a basic static NAT (network address translation) configuration, a simple 1:1 mapping connects the private network address and the public address.
+        =In dynamic NAT, the NAT device exposes a pool of public IP addresses and builds a table of the public to private address mappings that it releases when the sessions end.
+
+- Network Access Control (NAC) is a system for authenticating endpoints at the point they connect to the network and can ensure that clients are running an authorized OS and have up-to-date patches and security scanner configurations.
+    -Defense in depth refers to placing security controls throughout the network, so that the network authenticates, authorizes, and audits all access attempts.
+    -A honeypot is a computer system set up to attract attackers, intending to analyze attack strategies and tools and to divert attention from actual computer systems.
+    -Separation of duties is a means of establishing checks and balances against the possibility that insider threats can compromise critical systems or procedures.        
+
+- On a self-signed certificate, the holder is both the issuer and the subject of the certificate. The administrator should replace the default certificate with one trusted by the enterprise.
+
+- The router on that subnet doesn't support BOOTP forwarding so DHCP traffic cannot get through to the clients.
+
+- The administrator should check the local cache. On Windows, the administrator can use ipconfig /displaydns and ipconfig /flushdns to monitor and clear the system cache.
+    -The administrator should check the HOSTS file which is a static list of hostname to IP address mappings on the system and should not have any entries other than the loopback address.
+    -The administrator should query DNS. A host uses the name servers defined in its IP configuration to resolve queries.
+
+-     
 </pre>    
 </body>
 </html>
