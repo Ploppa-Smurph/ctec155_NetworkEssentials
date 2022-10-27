@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTEC-155 wk 10 Lesson 15 Deploying and Troubleshooting Wireless Networks</title>
+</head>
+<body>
+<h1>CTEC-155 wk 10 Lesson 15 Deploying and Troubleshooting Wireless Networks</h1>
+<pre>
+<h2>15A Summarize Wireless Standards</h2>
+Unbounded = wireless media 
+<h3>IEEE 802.11 Wireless Standards</h3>    
+<h3>802.11 A and 5GHz Channel Bandwidth</h3>
+<h3>802.11 B/G and 2.4GHz Channel Bandwidth</h3>
+<h3>802.11 N, MIMO, and Channel Bonding</h3>
+Multiple Input, Multiple Outpu (MIMO)
+<h3>Wi-Fi 5 and Wi-Fi 6</h3>
+Wi-Fi 5 = 802.11ac
+
+Wi-Fi 6 = 802.11ax
+<h3>Multiuser MIMO (MU-MIMO)</h3>
+<h3>2G and 3G Cellular Tech</h3>
+<h3>4G and 5G Cellular Tech</h3>
+
+
+<h2>15B Install Wireless Networks</h2>
+<h3>Infrastructure Topology and Wireless Access Points</h3>
+<h3>Wireless Site Design</h3>
+<b>SSID Broadcast and Beacon Frame</b>
+<b>Speed and Distance Requirements</b>
+<h3>Site Survey and Heat Maps</h3>
+<h3>Wireless Roaming and Bridging</h3>
+<h3>Wireless LAN Controllers</h3>
+APs = Access Points 
+Fat AP = Firmware contains logic to function autonomously
+Thin AP = AP that requires a wireless controller to function
+<h3>Ad Hoc and Mesh Topologies</h3> 
+<b>Ad Hoc Topology</b>
+<b>Mesh Topology</b>
+
+<h2>15C Troubleshoot Wireless Networks</h2>
+<h3>Wireless Performance Assessment</h3>
+<h3>Signal Strength</h3>
+<h3>Antenna Types</h3>
+<h3>Insufficient Wireless Coverage Issues</h3>
+<b>Antenna Placement</b>
+<b>Antenna Cable Attenuation</b>
+<b>Effective Isotopic Radiated Power / Power Settings</b>
+<h3>Channel Utilization and Overlap Issues</h3>
+<b>CCI Co-Channel Interference</b>
+<b>ACI Adjacent Channel Interference</b>
+<h3>Overcapacity Issues</h3>
+<h3>Interference Issues</h3>
+<b>Reflection / Bounce (Multipath Interference)</b>
+<b>Refraction</b>
+<b>Absorption</b>
+<b>EMI Electromagnetic Interference</b>
+
+<h2>15D Configure and Troubleshoot Wireless Security</h2>
+<h3>Wi-Fi Encryption Standards</h3>
+<h3>Personal Authentication</h3>
+<b>WPA2 Pre-Shared Key Auth</b>
+<b>WPA3 Personal Auth</b>
+<h3>Enterprise / IEEE 802.1x Authentication</h3>
+<h3>Wi-Fi Security Configuration Issues</h3>
+<b>Wrong SSID and Incorrect Passphrase Issues</b>
+<b>Encryption Protocol Mismatch Issues</b>
+<h3>Client Disassociation Issues</h3>
+<h3>Open Authentication and Captive Portal Issues</h3>
+
+<h2>Lesson 15 Quiz Qustions and Answers</h2>
+- One of the issues with WPA3, a personal mode of authentication, is group authentication because the administrator must configure the same secret on the access point and on each node that joins the network.
+    - One of the issues with WPA3, a personal mode of authentication, is that there is no accountability for individual user actions as all users share the same credential.
+       * Simultaneous Authentication of Equals (SAE) is a personal authentication mechanism for Wi-Fi networks introduced with WPA3 to address vulnerabilities in the WPA-PSK method.
+       * Password Authenticated Key Exchange (PAKE) is another way to reference WPA3 Personal Authentication.
+
+- The reason Wi-Fi 6 reinstates operation in the 2.4 GHz band is to support Internet of Things (IoT) device connectivity.
+        * The aim for Wi-Fi 6 is to approximate 10G connection speeds (AX11000). The only use of a new 6 GHz frequency band can achieve these data rates.
+        * Wi-Fi 6 uses more complex modulation and signal encoding to improve the amount of data sent per packet by about 40% over Wi-Fi 5.
+        * Wi-Fi 6 can use small resource units which reduces throughput but provides more opportunities for a larger number of devices to transmit which reduces latency.       
+
+- 802.11 uses Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA) where clients avoid collisions by waiting until the channel is idle before sending.
+        * An ACK is an acknowledgment. Under CSMA/CA, when a station receives a frame, it performs error checking. If the frame is intact, the station responds with an ACK.
+        * An RTS is a Request to Send. 802.11 also defines a Virtual Carrier Sense flow control mechanism where a station broadcasts an (RTS) with the source and destination and the time required to transmit.
+        * A CTS is a Clear To Send. When a station broadcasts RTS, the receiving station responds with a CTS and all other stations in range do not attempt to transmit within that period.        
+
+- The 2.4 GHz band is better at propagating through solid surfaces, making it ideal for providing the longest signal range.
+    - The 5 GHz band supports more individual channels and suffers less from congestion and interference, meaning it supports higher data rates at shorter ranges.
+        * 5 GHz is less effective at penetrating solid surfaces and so does not support the maximum ranges achieved with 2.4 GHz standards.
+        * The 2.4 GHz band does not support a high number of individual channels and is often congested, both with other Wi-Fi networks and other types of wireless technology.        
+
+- The administrator should investigate signal strength, or radiofrequency attenuation because as the distance from the antenna increases, the strength of the signal decreases in accordance with the inverse-square rule.
+    - The administrator should investigate interference as interference sources collectively overlay a competing background signal, referred to as noise.         
+
+- The administrator should check the antenna placement as incorrect antenna placement could cause or exacerbate attenuation and interference problems and cause issues with the signal strength.
+    - The administrator should check for antenna cable attenuation which is signal loss caused by an external antenna connected to an access point over cabling.
+    - The administrator should check Effective Isotropic Radiated Power (EIRP) which is the sum of transmit power, antenna cable/connector loss, and antenna gain and can affect wireless coverage.    
+
+- Global System for Mobile Communication (GSM) is a format for 2G and a standard for cellular radio communications and data transfer.
+    - Code Division Multiple Access (CDMA) is a format for 2G and means that each subscriber uses a code to key the modulation of their signal and the receiver uses this "key” to extract the subscriber's traffic from the radio channel.    
+
+- Absorption is causing decibel loss. Absorption refers to the degree to which walls and windows will reduce signal strength when passing through construction materials.
+
+- Most wireless LANs (WLANs) are based on the IEEE 802.11 standards which define the physical layer media by which data encodes into a radio carrier signal by using a modulation scheme.
+
+- The administrator should implement Wi-Fi Protected Access 2 (WPA2) which provides authenticated encryption and makes replay attacks harder.
+
+- don't worry about the screen protector 
+    * Using a virtual private network (VPN) will secure the open connection with an encrypted "tunnel" between the user's computer and the VPN server.
+    * Using only Hypertext Transfer Protocol Secure (HTTPS) connections will secure any confidential web data the user sends.
+    * Enabling Secure Socket Layer/Transport Layer Security (SSL/TLS) for use with email, VoIP, IM, and file transfer services will secure that data from anyone who may be eavesdropping on the open access point.
+
+- A heat map shows the signal strength within a particular channel obtained in different locations graphically and shows areas with a strong signal and warnings where signal strength drops off.
+
+- Co-channel interference (CCI) could be causing this issue. It occurs when multiple access points use the same channel, and it reduces the opportunities for devices to transmit.
+    - Adjacent channel interference (ACI) could be causing this issue. It occurs when access points use different but overlapping channels and it raises noise levels.
+    - Bandwidth saturation could be causing this issue. Wireless is a broadcast medium and all clients share the available bandwidth so if one client is a bandwidth hog the others may not get a reliable connection.
+        * Overcapacity would not be an issue as a maximum of 30 clients per access point is the rule of thumb and in this case, there are only 25 clients per access point.    
+
+- The administrator could use a dedicated hardware device called a wireless LAN controller to centralize the management and monitoring of the APs on the network.
+    - The administrator could use a software application, which the administrator can run on a server or workstation, to centralize the management of APs.       
+
+- The administrator can use WDS to create an extended service area (ESA). The administrator must set the APs to use the same channel, SSID, and security parameters.
+    - The administrator can use WDS to bridge two separate cabled segments. When WDS is in bridge mode, the access points will not support wireless clients; they simply forward traffic between the cabled segments.    
+
+- The wireless devices should have vertical rod antennas which receive and send signals in all directions more-or-less equally and the installer should mount them on the ceiling for the best coverage, unless the ceiling is particularly high.
+
+- If access points are placed too closely together, a device may not properly roam from one access point to another, causing it to disassociate and reassociate too frequently.
+    - A MAC spoofing disassociation attack injects management frames that spoof the MAC address of a legitimate client in a disassociation notification, disconnecting the client from the network.
+    - A client or access point can use disassociation and/or deauthentication frames to notify the other party that it has ended a connection. Interference may cause a client to disassociate unexpectedly.    
+
+- 
+</pre>
+</body>
+</html>
