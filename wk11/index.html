@@ -12,16 +12,153 @@
 <h2>Lesson 16: Comparing WAn Links and Remote Access Methods</h2>
 identify the characteristics of WAN service provider offers and components of remote access network implementations.
 <h3>16A: Explain WAN Provider Links</h3>
-<h3>16B: </h3>
-<h3>16C: </h3>
-
-
-
+<h4>WAN (Wide Area Network) and the OSI Model</h4>
+<h4>WAN Provider Links</h4>
+<b>Demarcation Point</b> (demarc or MPOE [Minimum Point of Entry])
+<h4>T-Carrier and Leased Line Provider Links</h4>
+<b>Smarjack</b>
+<b>Channel Service Unit / Data Service Unit (CSU/DSU)</b>
+<h4>Digital Subscriber Line Provider Links</h4>
+<b>DSL (Digital Subscriber Line)</b>
+<b>DSL Modems</b>
+<b>DSL Types:</b>
+        - Symmetrical DSL (SDSL):
+        - Asymmetrical DSL (ADSL):
+<h4>Fiber to the Curb (FTTC)</h4>        
+<b>Fiber to the X (FTTx):</b>
+    - FTTP = Fiber to the Premises / FTTH = Fiber to the Home
+    - FTTN = Fiber to the Node
+    - FTTC = Fiber to the Curb
+<h4>Cable Provider Links</h4>     
+<b>Cable Modem</b> - 
+<h4>Metro-Optical Provider Links</h4>
+<b>Ethernet over Fiber</b>
+<b>Ethernet over Copper</b>
+<b>E-line</b>
+<b>E-LAN</b>
+<b>Passive Optical Network (PON)</b>
+<h4>Microwave Satellite</h4>
+<h3>16B: Compare and Contrast Remote Access Methods</h3>
+<h4>Remote Network Access Authentication and Authorization</h4>
+<h4>Tunneling and Encapsulation Protocols</h4>
+<b>Virtual Private Network (VPN)</b>
+<b>Point-to-Point Protocol (PPP)</b> - (Layer 2 - Data Link Layer)
+<b>Generic Routing Encapsulation (GRE)</b> - (Layer 3 - Network Layer)
+<b>IP Security (IPSec)</b> - (Layer 3 -- Network Layer)
+<b>Transport Layer Security (TLS) [over TCP] or Datagram TLS (DTLS) [over UDP]</b> - (Layer 5 - Session Layer)
+<h4>Client-to-Site Virtual Private Network</h4>
+<b>Split-Tunnel</b>
+<b>Full-Tunnel</b> - better security, higher latency, some trouble with cloud sites
+<h4>Remote Host Access and Remote Desktop Gateways</h4>
+<b>Remote Desktop Protocol and Virtual Networking Computing</b>
+<b>Clientless VPNs</b>
+<h4>Site-to-Site Virtual Private Networks</h4>
+<h4>Hub and Spoke VPNs and VPN Headends</h4>
+<b>VPN Headend</b> - 
+<b>Dynamic Multipoint VPN (DMVPN)</b>
+<h4>Internet Protocol Security</h4>
+<b>Internet Protocol Security (IPSEC)</b>
+<b>Authentication Header (AH)</b>
+<b>Encapsulating Security Payload (ESP)</b>
+<h4>IKE and IPSec Modes</h4>
+<b>Internet Key Exchange (IKE)</b> - 
+<b>IPSec</b> can be used in 2 modes:
+    - Transport mode:
+    - Tunnel mode:
+<h4>Out-of-Band Management Methods</h4>
+<b>Console Port</b>
+<b>AUX Port</b>
+<b>Management Port</b>
 
 <h2>Lesson 17: Explaining Organizational and Physical Security Concepts</h2>
-<h3>17A: </h3>
-<h3>17B: </h3>
-<h3>17C: </h3>
+<h3>17A: Explain Organizational Documentation and Policies</h3>
+<h4>Operating Plans and Procedures</h4>
+<b>Configuration Management</b>
+<b>Change Management</b>
+<b>Standard Operating Procedures (SOP)</b>
+<h4>System Lifecycle Plans and Procedures</h4>
+<b>Audit Reports</b>
+<b>Assessment Reports</b>
+<b>System Life Cycle</b>
+<h4>Physical Network Diagrams</h4>
+<b>Floor Plan</b>
+<b>Wiring Diagram</b>
+<b>Distribution Frame</b>
+<ul>
+    <li>Main Distribution Frame (MDF)</li>
+    <li>Intermediate Distribution Frame (IDF)</li>
+</ul>
+<b>Site Survey Report</b>
+<h4>Rack Diagrams</h4>
+<h4>Logical vs Physical Network Diagrams</h4>
+<b>PHY (Physical layer / Layer 1)</b>
+<b>Data Link (Layer 2)</b>
+<b>Logical (IP/Layer 3)</b>
+<b>Application</b>
+<h4>Security Response Plans and Procedures</h4>
+<b>Incident Response Plan</b>
+<b>Disaster Recovery Plan</b>
+<b>Business Continuity Plan</b>
+<h4>Hardening and Security Policies</h4>
+<b>Onboarding</b>
+<ul>
+    <li>Background Check</li>
+    <li>Identity and Access Management (IAM)</li>
+    <li>Asset Allocation</li>
+    <li>Tranining / Policies</li>
+</ul>
+<b>Offboarding</b>
+<ul>
+    <li>IAM - disable the account</li>
+    <li>Retrieve Company Assets</li>
+    <li>Return Personal Assets</li>
+</ul>
+<h4>Usage Policies</h4>
+<b>Password Policy</b>
+<b>Acceptable Use Policy (AUP)</b>
+<b>BYOD (Bring Your Own Device)</b>
+<h4>Data Loss Prevention (DLP)</h4>
+<h4>Remote Access Policies</h4>
+<b>Malware Protection</b>
+<b>Security Information</b>
+<b>Data Transfer</b>
+<b>Local Privileges</b>
+<b>Weak Authentication</b>
+<b>Untrusted Network</b>
+<h4>Common Agreements</h4>
+<b>Service Level Agreement Requirements (SLA)</b>
+<b>Non-Disclosure Agreement (NDA)</b>
+<b>Memorandum of Understanding (MOU)</b>
+<h3>17B: Explain Physical Security Methods</h3>
+<h4>Badges and Site Secure Entry Systems</h4>
+<b>Access Control Hardware</b>
+<ul>
+    <li>Badge Reader</li>
+    <li>Biometric</li>
+</ul>
+<b>Access Control Vestibule</b>
+<h4>Physical Security for Server Systems</h4>
+<b>Locking Racks</b>
+<b>Locking Cabinets</b>
+<b>Smart Cabinets</b>
+<h4>Detection-Based Devices</h4>
+<b>Cameras</b>
+<b>Asset Tags</b>
+<h4>Alarms and Tamper Detection</h4>
+<b>Circuit</b>
+<b>Motion Detection</b>
+<h4>Asset Disposal</h4>
+<b>Factory Reset</b>
+<b>Data Remnants</b>
+<b>Media Sanitation</b>
+<b>Secure Erase</b>
+<b>Instant Secure Erase</b>
+<h4>Employee Training</h4>
+<h3>17C: Compare and Contrast IoT Devices</h3>
+<h4>Internet of Things (IoT)</h4>
+<b>Consumer-grade Smart Devices</b>
+
+
 
 </pre>
 </body>
