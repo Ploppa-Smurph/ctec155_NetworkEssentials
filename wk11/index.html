@@ -70,17 +70,37 @@ identify the characteristics of WAN service provider offers and components of re
 <b>AUX Port</b>
 <b>Management Port</b>
 <h3>Lesson 16 Quiz</h3>
--
+- The VPN router installed in the central office or hub needs to be a powerful machine 
+  capable of aggregating high traffic volumes. This VPN router is also known as a VPN headend.
+  VPN headends would typically install in groups for load balancing and fault tolerance.
 
-- 
+- Wide area network (WAN) technologies support data communications over greater distances than LANs. 
+  Long-distance communications usually involve the use of public networks. Public networks are owned 
+  by telecommunications (telco) companies and provide WAN services to businesses and households.
 
--
+- Digital subscriber line (DSL) is a technology that can transfer data over voice-grade telephone lines,
+  often referred to as the local loop.
 
-- 
+- Ethernet over Copper uses DSL variants such as single-pair high-speed DSL (SHDSL) and very high-speed DSL (VDSL)
+  to overcome the usual distance limitations of copper Ethernet. This does not support the same speeds as LAN 
+  Ethernet (more typically 2-10 Mbps), but the organization can combine multiple pairs for higher bandwidth. 
 
-- 
+- Most modern remote network access solutions use Internet access infrastructure and set up a secure tunnel for 
+  private communications through the internet. This is known as a virtual private network (VPN).
 
--
+- The major obstacle to providing WAN access that can approach LAN performance is bandwidth in the last mile. 
+  The most expensive solution is Fiber to the Premises (FTTP).
+
+- A remote access VPN refers to extending local network access over an intermediate public network so that a remote computer can join the local network.
+   * The network engineer can also deploy a VPN in a site-to-site model to connect two or more private networks. The configuration of a site-to-site VPN is to operate automatically.
+   * A site-to-site VPN that involves more than two sites connects the remote sites (or spokes) to a headquarters site (hub) by using static tunnels configured between the hub and each spoke. This is referred to as a hub and spoke topology.
+   * This VPN router is also known as a VPN headend. VPN headends would typically install in groups for load balancing and fault tolerance.  
+
+- A dynamic multipoint VPN (DMVPN) allows VPNs to be set up dynamically according to traffic requirements and demand.
+
+- A site-to-site VPN that involves more than two sites connects the remote sites (or spokes) to a headquarters site (hub) by using static tunnels configured between the hub and each spoke. This is referred to as a hub and spoke topology.
+
+- The term enterprise WAN describes a WAN operated and controlled by a single organization.
 <h2>Lesson 17: Explaining Organizational and Physical Security Concepts</h2>
 <h3>17A: Explain Organizational Documentation and Policies</h3>
 <h4>Operating Plans and Procedures</h4>
@@ -192,17 +212,47 @@ identify the characteristics of WAN service provider offers and components of re
 <b>Smart buildings</b>
 <b>ICS/SCADA</b>
 <h3>Lesson 17 Quiz</h3>
--
+- A closed-circuit alarm is more secure because cutting the circuit can defeat an open-circuit alarm. 
+  The security consultant can use this type of system for tamper detection.
 
-- 
+- An incident response plan sets out the procedures, tools, methods of communication, and guidelines for dealing with security incidents.
 
--
+- An industrial control system (ICS) provides mechanisms for workflow and process automation. An ICS controls machinery used in critical 
+  infrastructures, like power suppliers, water suppliers, health services, telecommunications, and national security services.
 
-- 
+- An asset tag shows the ID of a device or component and links it to an inventory management database. Radio Frequency ID (RFID) asset 
+  tracking tags allow electronic surveillance of managed assets and are detectable at entry/exit points to prevent theft.
 
-- 
+- Narrowband-IoT (NB-IoT) refers to a low-power version of the Long Term Evolution (LTE) or 4G cellular standard. The signal occupies 
+  less bandwidth than regular cellular. This means that data rates are limited (20-100 kbps), but most sensors send small packets with
+  low latency rather than making large data transfers.
 
--
+- A security camera is either fixed or operated using Pan-Tilt-Zoom (PTZ) controls. Different cameras suit different purposes. A fixed,
+  narrow focal length camera positioned on the doorway is adequate to record images of individuals entering through an access control vestibule.
+
+- Z-Wave is a wireless communications protocol used primarily for home automation and creates a mesh network topology. The Z-Wave Alliance operates
+  a device and software certification program.
+
+- A floor plan is a detailed diagram of wiring and port locations. Physically accurate floor plans are hard to design and are likely to require the
+  help of an architect or graphics professional.  
+
+- When a server or appliance is disposed of by resale, gift, or recycling, there is risk that software licenses could be misused or valuable 
+  configuration information leaked to an attacker. Invoking the built-in factory reset routine to wipe any custom configuration settings or 
+  modifications when decommissioning a server, switch, router, firewall, or printer can mitigate these risks.
+  
+- A rack system is a specially configured steel shelving system for patch panels, switches and routers, and server devices. Racks are standard widths
+  and can fit appliances using standard height multiples of 1.75" called units (U).   
+
+- A motion-based alarm is an alarm linked to a detector triggered by movement within a relatively large area, such as a room. The sensors in these 
+  detectors are either microwave radio reflection (similar to radar) or passive infrared (PIR), which detect moving heat sources.  
+
+- A physical access control system (PACS) is a network of monitored locks, intruder alarms, and video surveillance cameras.
+
+- A documented change management process minimizes the risk of unscheduled downtime by implementing changes in a planned and controlled way.
+
+- LTE Machine Type Communication (LTE-M) is a low-power system but supports higher bandwidth (up to about 1 Mbps).
+
+- A wiring diagram (or pin-out) shows detailed information about the termination of twisted pairs in an RJ-45 or RJ-48C jack or Insulation Displacement Connector (IDC).
 <h2>Lab: Configure Remote Access</h2>
  *** configure an IPSec policy that requires a client (PC10) to establish a secure connection with a server (MS10). IPsec policies can be enabled to encrypt connections between systems, 
     whether on an internal LAN or a VPN connection. The principle is the same in both cases. A zero-trust model ensures that all communications between servers or between servers and clients
@@ -222,10 +272,6 @@ identify the characteristics of WAN service provider offers and components of re
 
    nslookup = dns server name, Host name, IP address
 <h2>Lab: Troubleshoot Service and Security Issues</h2>
-
-
-
-
 </pre>
 </body>
 </html>
