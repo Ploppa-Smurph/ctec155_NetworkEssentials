@@ -50,10 +50,18 @@ logs (when system startup, shutdown, or restart information is logged) or via to
 Backups ensure that data is not lost and backups help get services back up more quickly
 
 RTO Recovery Time Objective = time service MUST be restored
-
 <h3>Lab: Configure Port Security</h3>
+In this lab you will configure and test firewall settings for a router and a server.
 
+In this example, you specified a particular IP address to be filtered by the router. You could have specified an entire subnet. It can be useful to isolate
+ traffic within a LAN between departments or environments such as staging, dev, and production.
 
+This should fail. That indicates that there is no route to the destination or that the route is blocked by a firewall rule. Such a test helps narrow the 
+ scope of the problem for troubleshooting.  
+
+Recall that a firewall applies rules to traffic that either permit or deny certain types of traffic through certain interfaces. Network Address Translation (NAT)
+does not filter traffic, but rather substitutes public and private IP addresses to maximize the use of the limited number of IPv4 addresses and to obscure the 
+IP address structure of the internal network.
 <h3>Lab: Analyze an On-Path Attack</h3>
 </pre>
     
