@@ -63,6 +63,12 @@ Recall that a firewall applies rules to traffic that either permit or deny certa
 does not filter traffic, but rather substitutes public and private IP addresses to maximize the use of the limited number of IPv4 addresses and to obscure the 
 IP address structure of the internal network.
 <h3>Lab: Analyze an On-Path Attack</h3>
+Security penetration testing software can generate various network attacks. In this scenario, you will use a tool named Ettercap to perform an ARP spoofing or
+poisoning attack on the MS10 virtual machine. The attack will redirect packets away from the legitimate router interface to the attacker's own network interface. 
+First you will document the MS10 server's MAC address. Next, you will configure the Man-in-the-Middle (MitM) attack and packet capture. You will then examine the 
+captured packets. Finally, you will confirm the attack is over by checking MAC address information on MS10.
+
+
 </pre>
     
 </body>
